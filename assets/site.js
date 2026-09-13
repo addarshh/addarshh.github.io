@@ -7,7 +7,7 @@ const citations = {
   title={When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus},
   author={Agrawal, Adarsh},
   year={2026},
-  url={https://addarshh.github.io/papers/intent-shield/paper.pdf}
+  url={https://addarshh.github.io/papers/intent-shield/intent-shield.pdf}
 }`,
   incident2026: `@misc{agrawal2026incidentmemory,
   title={Incident Memory: Training-Free Operational Memory through Sequential Pattern Mining and Velocity-Stratified Retrieval},
