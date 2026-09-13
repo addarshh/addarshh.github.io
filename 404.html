@@ -4,25 +4,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/site.css">
   <title>Page not found | Adarsh Agrawal</title>
 </head>
 <body>
-  <aside class="site-rail" aria-label="Site navigation">
-    <a class="rail-name" href="/">Adarsh<br>Agrawal</a>
-    <nav class="rail-nav" aria-label="Primary navigation">
-      <a href="/">Home</a>
-    </nav>
-  </aside>
-  <main class="not-found">
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="site-name" href="/">Adarsh Agrawal</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/">About</a>
+        <a href="/experience.html">CV</a>
+        <a href="/research.html">Research</a>
+        <a href="/projects.html">Projects</a>
+        <a href="/recognition.html">Others</a>
+      </nav>
+    </div>
+  </header>
+  <main class="not-found page-shell">
     <div>
       <h1>404</h1>
       <p>The requested page was not found.</p>
-      <a href="/">Return to the research site</a>
+      <a class="text-action" href="/">Return to the home page <i data-lucide="arrow-right" aria-hidden="true"></i></a>
     </div>
   </main>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="/assets/site.js"></script>
 </body>
 </html>

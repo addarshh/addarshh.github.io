@@ -1,77 +1,77 @@
 const menuToggle = document.querySelector("[data-menu-toggle]");
-const mobileNav = document.querySelector("[data-mobile-nav]");
+const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
-  vidgen2024mlcommons: `@article{vidgen2024introducing,
+  incident2026: `@misc{agrawal2026incidentmemory,
+  title={Incident Memory: Training-Free Operational Memory through Sequential Pattern Mining and Velocity-Stratified Retrieval},
+  author={Agrawal, Adarsh and Babu, Rahul Suresh},
+  year={2026},
+  eprint={2609.01616},
+  archivePrefix={arXiv},
+  primaryClass={cs.IR},
+  url={https://arxiv.org/abs/2609.01616}
+}`,
+  selfhealing2026: `@misc{babu2026selfhealing,
+  title={Self-Healing Agentic Orchestrators for Reliable Tool-Augmented Large Language Model Systems},
+  author={Babu, Rahul Suresh and Agrawal, Adarsh},
+  year={2026},
+  eprint={2606.01416},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI},
+  url={https://arxiv.org/abs/2606.01416}
+}`,
+  schema2026: `@misc{agrawal2026schemafirst,
+  title={Schema-First Retrieval: Embedding Catalogs for Natural Language Analytics},
+  author={Agrawal, Adarsh and Indukuri, Shashank},
+  year={2026},
+  eprint={2606.28387},
+  archivePrefix={arXiv},
+  primaryClass={cs.IR},
+  url={https://arxiv.org/abs/2606.28387}
+}`,
+  grounded2026: `@misc{indukuri2026grounded,
+  title={Grounded Optimization: A Layered Engineering Framework for Reducing LLM Hallucination in Automated Personal Document Rewriting},
+  author={Indukuri, Shashank and Agrawal, Adarsh},
+  year={2026},
+  eprint={2607.01457},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2607.01457}
+}`,
+  mlcommons2024: `@misc{vidgen2024mlcommons,
   title={Introducing v0.5 of the AI Safety Benchmark from MLCommons},
   author={Vidgen, Bertie and Agrawal, Adarsh and others},
-  journal={arXiv preprint arXiv:2404.12241},
-  year={2024}
-}`,
-  babu2026selfhealing: `@article{babu2026selfhealing,
-  title={Self-Healing Agentic Orchestrators for Reliable Tool-Augmented Large Language Model Systems},
-  author={Babu, Raghavendra Sai and Agrawal, Adarsh},
-  journal={arXiv preprint arXiv:2606.01416},
-  year={2026}
-}`,
-  agrawal2026schema: `@article{agrawal2026schema,
-  title={Schema-First Retrieval: Embedding Catalogs for Natural Language Analytics},
-  author={Agrawal, Adarsh and Indukuri, Sai},
-  journal={arXiv preprint arXiv:2606.28387},
-  year={2026}
-}`,
-  indukuri2026grounded: `@article{indukuri2026grounded,
-  title={Grounded Optimization: A Layered Engineering Framework for Reducing LLM Hallucination in Automated Personal Document Rewriting},
-  author={Indukuri, Sai and Agrawal, Adarsh},
-  journal={arXiv preprint arXiv:2607.01457},
-  year={2026}
+  year={2024},
+  eprint={2404.12241},
+  archivePrefix={arXiv},
+  primaryClass={cs.CL},
+  url={https://arxiv.org/abs/2404.12241}
 }`
 };
 
-function closeMenu() {
-  if (!mobileNav || !menuToggle) return;
-  mobileNav.classList.remove("is-open");
-  menuToggle.setAttribute("aria-expanded", "false");
-  menuToggle.setAttribute("aria-label", "Open navigation");
-  menuToggle.setAttribute("title", "Open navigation");
-  menuToggle.innerHTML = '<i data-lucide="menu" aria-hidden="true"></i>';
-  document.body.classList.remove("menu-open");
+function setMenu(open) {
+  if (!menuToggle || !siteNav) return;
+  siteNav.classList.toggle("is-open", open);
+  menuToggle.setAttribute("aria-expanded", String(open));
+  menuToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+  menuToggle.setAttribute("title", open ? "Close navigation" : "Open navigation");
+  menuToggle.innerHTML = `<i data-lucide="${open ? "x" : "menu"}" aria-hidden="true"></i>`;
+  document.body.classList.toggle("menu-open", open);
   window.lucide?.createIcons();
 }
 
 menuToggle?.addEventListener("click", () => {
-  const isOpen = mobileNav?.classList.toggle("is-open");
-  menuToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
-  menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
-  menuToggle.setAttribute("title", isOpen ? "Close navigation" : "Open navigation");
-  menuToggle.innerHTML = `<i data-lucide="${isOpen ? "x" : "menu"}" aria-hidden="true"></i>`;
-  document.body.classList.toggle("menu-open", Boolean(isOpen));
-  window.lucide?.createIcons();
+  setMenu(!siteNav?.classList.contains("is-open"));
 });
 
-mobileNav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+siteNav?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => setMenu(false));
+});
 
-const sections = [...document.querySelectorAll("[data-section]")];
-const railLinks = [...document.querySelectorAll(".rail-nav a")];
-
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver((entries) => {
-    const visible = entries
-      .filter((entry) => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-    if (!visible) return;
-    railLinks.forEach((link) => {
-      link.classList.toggle("is-active", link.getAttribute("href") === `#${visible.target.id}`);
-    });
-  }, {
-    rootMargin: "-18% 0px -68% 0px",
-    threshold: [0, 0.1, 0.25]
-  });
-
-  sections.forEach((section) => observer.observe(section));
-}
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 860) setMenu(false);
+});
 
 let toastTimer;
 
