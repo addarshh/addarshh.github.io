@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Adarsh Agrawal is an applied scientist researching trustworthy AI, reliable agents, voice evaluation, and efficient inference.">
+  <meta property="og:title" content="Adarsh Agrawal | AI Research">
+  <meta property="og:description" content="Research in trustworthy AI, reliable agents, voice evaluation, and efficient inference.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://adarshiitd.github.io/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://adarshiitd.github.io/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <title>Adarsh Agrawal | AI Research</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Adarsh Agrawal",
+    "jobTitle": "Applied Scientist",
+    "url": "https://adarshiitd.github.io/",
+    "sameAs": [
+      "https://github.com/adarshiitd",
+      "https://linkedin.com/in/adarshagrawal01",
+      "https://scholar.google.com/citations?user=fbqZ9wcAAAAJ"
+    ],
+    "alumniOf": [
+      {"@type": "CollegeOrUniversity", "name": "Stony Brook University"},
+      {"@type": "CollegeOrUniversity", "name": "Indian Institute of Technology Delhi"}
+    ],
+    "knowsAbout": [
+      "Artificial intelligence",
+      "AI safety",
+      "Agent reliability",
+      "Voice AI evaluation",
+      "Efficient inference"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <div class="header-inner">
+      <a class="wordmark" href="#top" aria-label="Adarsh Agrawal home">
+        <span class="wordmark-mark" aria-hidden="true">AA</span>
+        <span>Research</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#service">Service</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-button" type="button" data-theme-toggle aria-label="Switch color theme" title="Switch color theme">
+          <i data-lucide="moon" aria-hidden="true"></i>
+        </button>
+        <button class="icon-button menu-button" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation" title="Open navigation">
+          <i data-lucide="menu" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" data-mobile-nav aria-label="Mobile navigation">
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#service">Service</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="location-line">
+          <span class="status-dot" aria-hidden="true"></span>
+          Applied Scientist in Seattle
+        </p>
+        <h1>Adarsh<br>Agrawal</h1>
+        <p class="hero-thesis">I build AI systems that remain useful when the world gets messy.</p>
+        <p class="hero-intro">
+          My research connects trustworthy evaluation, reliable agents, voice AI,
+          and efficient inference. I care about systems that work under real
+          constraints: latency, ambiguity, compute, and tool failure.
+        </p>
+        <div class="hero-links" role="group" aria-label="Featured links">
+          <a class="button button-primary" href="#publications">
+            <i data-lucide="book-open" aria-hidden="true"></i>
+            Read the research
+          </a>
+          <a class="button button-quiet" href="https://scholar.google.com/citations?user=fbqZ9wcAAAAJ" target="_blank" rel="noreferrer">
+            Google Scholar
+            <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="research-map" role="img" aria-label="Interactive map of four connected research areas">
+        <canvas data-research-canvas></canvas>
+        <div class="map-label map-label-safety">
+          <span>01</span>
+          Trustworthy evaluation
+        </div>
+        <div class="map-label map-label-agents">
+          <span>02</span>
+          Reliable agents
+        </div>
+        <div class="map-label map-label-voice">
+          <span>03</span>
+          Voice AI
+        </div>
+        <div class="map-label map-label-inference">
+          <span>04</span>
+          Efficient inference
+        </div>
+        <p class="map-caption">Move across the map to trace the connections.</p>
+      </div>
+
+      <a class="hero-scroll" href="#research" aria-label="Continue to research">
+        <span>Research threads</span>
+        <i data-lucide="arrow-down" aria-hidden="true"></i>
+      </a>
+    </section>
+
+    <section class="section research-section" id="research">
+      <div class="section-heading">
+        <p class="section-index">Research</p>
+        <h2>Four threads, one systems question</h2>
+        <p>How do we make capable AI dependable outside a clean benchmark?</p>
+      </div>
+
+      <div class="research-threads">
+        <article class="thread thread-blue">
+          <div class="thread-number">01</div>
+          <div>
+            <h3>Trustworthy evaluation</h3>
+            <p>Benchmarks and contrast sets that expose where model behavior diverges from the outcome we intended to measure.</p>
+            <p class="thread-methods">AI safety benchmarks, bias measurement, evaluation design</p>
+          </div>
+        </article>
+        <article class="thread thread-red">
+          <div class="thread-number">02</div>
+          <div>
+            <h3>Reliable agents</h3>
+            <p>Architectures that detect failure, recover state, and keep tool-using systems grounded over long workflows.</p>
+            <p class="thread-methods">Agent orchestration, recovery, observability, evaluation gates</p>
+          </div>
+        </article>
+        <article class="thread thread-mint">
+          <div class="thread-number">03</div>
+          <div>
+            <h3>Voice AI</h3>
+            <p>Evaluation methods that account for prosody, timing, and other information lost when speech is reduced to text.</p>
+            <p class="thread-methods">Prosodic contrast sets, speech evaluation, semantic reliability</p>
+          </div>
+        </article>
+        <article class="thread thread-yellow">
+          <div class="thread-number">04</div>
+          <div>
+            <h3>Efficient inference</h3>
+            <p>Hardware-aware systems for responsive AI on constrained devices and latency-sensitive production paths.</p>
+            <p class="thread-methods">On-device AI, quantization, caching, adaptive serving</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section publications-section" id="publications">
+      <div class="section-heading publications-heading">
+        <div>
+          <p class="section-index">Selected publications</p>
+          <h2>Work and manuscripts</h2>
+        </div>
+        <a class="text-link" href="https://scholar.google.com/citations?user=fbqZ9wcAAAAJ" target="_blank" rel="noreferrer">
+          All on Google Scholar
+          <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+        </a>
+      </div>
+
+      <div class="featured-papers">
+        <article class="paper paper-featured">
+          <a class="paper-cover paper-cover-blue" href="https://arxiv.org/abs/2404.12241" target="_blank" rel="noreferrer" aria-label="Open Introducing v0.5 of the AI Safety Benchmark from MLCommons">
+            <img src="assets/papers/mlcommons-ai-safety.png" alt="First page of the MLCommons AI Safety benchmark paper" width="935" height="1210">
+            <span class="paper-cover-tag">AI safety</span>
+          </a>
+          <div class="paper-body">
+            <div class="paper-meta">
+              <span>2024</span>
+              <span>arXiv</span>
+              <span>MLCommons</span>
+            </div>
+            <h3><a href="https://arxiv.org/abs/2404.12241" target="_blank" rel="noreferrer">Introducing v0.5 of the AI Safety Benchmark from MLCommons</a></h3>
+            <p class="paper-authors">Bertie Vidgen, Adarsh Agrawal, et al.</p>
+            <p>A reproducible benchmark for evaluating large language models across 13 hazard categories.</p>
+            <div class="paper-actions">
+              <a class="button button-small" href="https://arxiv.org/abs/2404.12241" target="_blank" rel="noreferrer">
+                <i data-lucide="file-text" aria-hidden="true"></i>
+                Paper
+              </a>
+              <button class="button button-small button-copy" type="button" data-copy-citation="vidgen2024mlcommons">
+                <i data-lucide="copy" aria-hidden="true"></i>
+                Cite
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper paper-featured">
+          <a class="paper-cover paper-cover-red" href="https://arxiv.org/abs/2606.01416" target="_blank" rel="noreferrer" aria-label="Open Self-Healing Agentic Orchestrators">
+            <img src="assets/papers/self-healing-agents.png" alt="First page of the Self-Healing Agentic Orchestrators paper" width="935" height="1210">
+            <span class="paper-cover-tag">Agents</span>
+          </a>
+          <div class="paper-body">
+            <div class="paper-meta">
+              <span>2026</span>
+              <span>arXiv</span>
+            </div>
+            <h3><a href="https://arxiv.org/abs/2606.01416" target="_blank" rel="noreferrer">Self-Healing Agentic Orchestrators for Reliable Tool-Augmented Large Language Model Systems</a></h3>
+            <p class="paper-authors">Raghavendra Sai Babu and Adarsh Agrawal</p>
+            <p>A systems framework for detecting failures, preserving state, and recovering tool-augmented agent workflows.</p>
+            <div class="paper-actions">
+              <a class="button button-small" href="https://arxiv.org/abs/2606.01416" target="_blank" rel="noreferrer">
+                <i data-lucide="file-text" aria-hidden="true"></i>
+                Paper
+              </a>
+              <button class="button button-small button-copy" type="button" data-copy-citation="babu2026selfhealing">
+                <i data-lucide="copy" aria-hidden="true"></i>
+                Cite
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper paper-featured">
+          <a class="paper-cover paper-cover-mint" href="https://arxiv.org/abs/2606.28387" target="_blank" rel="noreferrer" aria-label="Open Schema-First Retrieval">
+            <img src="assets/papers/schema-first-retrieval.png" alt="First page of the Schema-First Retrieval paper" width="910" height="1287">
+            <span class="paper-cover-tag">Retrieval</span>
+          </a>
+          <div class="paper-body">
+            <div class="paper-meta">
+              <span>2026</span>
+              <span>arXiv</span>
+            </div>
+            <h3><a href="https://arxiv.org/abs/2606.28387" target="_blank" rel="noreferrer">Schema-First Retrieval: Embedding Catalogs for Natural Language Analytics</a></h3>
+            <p class="paper-authors">Adarsh Agrawal and Sai Indukuri</p>
+            <p>A retrieval architecture that selects relevant database schemas before generating natural-language analytics queries.</p>
+            <div class="paper-actions">
+              <a class="button button-small" href="https://arxiv.org/abs/2606.28387" target="_blank" rel="noreferrer">
+                <i data-lucide="file-text" aria-hidden="true"></i>
+                Paper
+              </a>
+              <button class="button button-small button-copy" type="button" data-copy-citation="agrawal2026schema">
+                <i data-lucide="copy" aria-hidden="true"></i>
+                Cite
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper paper-featured">
+          <a class="paper-cover paper-cover-yellow" href="https://arxiv.org/abs/2607.01457" target="_blank" rel="noreferrer" aria-label="Open Grounded Optimization">
+            <img src="assets/papers/grounded-optimization.png" alt="First page of the Grounded Optimization paper" width="935" height="1210">
+            <span class="paper-cover-tag">Grounding</span>
+          </a>
+          <div class="paper-body">
+            <div class="paper-meta">
+              <span>2026</span>
+              <span>arXiv</span>
+            </div>
+            <h3><a href="https://arxiv.org/abs/2607.01457" target="_blank" rel="noreferrer">Grounded Optimization: A Layered Engineering Framework for Reducing LLM Hallucination</a></h3>
+            <p class="paper-authors">Sai Indukuri and Adarsh Agrawal</p>
+            <p>A layered framework for making automated document rewriting more faithful to source evidence and user intent.</p>
+            <div class="paper-actions">
+              <a class="button button-small" href="https://arxiv.org/abs/2607.01457" target="_blank" rel="noreferrer">
+                <i data-lucide="file-text" aria-hidden="true"></i>
+                Paper
+              </a>
+              <button class="button button-small button-copy" type="button" data-copy-citation="indukuri2026grounded">
+                <i data-lucide="copy" aria-hidden="true"></i>
+                Cite
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <ul class="more-papers">
+        <li class="paper-row">
+          <div class="paper-row-year">2026</div>
+          <div>
+            <h3>Text Judges Can't Hear: Prosodic Contrast Sets Expose Systematic Bias in Voice AI Evaluation</h3>
+            <p>Adarsh Agrawal. Accepted at NLPCC 2026.</p>
+          </div>
+          <span class="topic-chip">Voice AI</span>
+        </li>
+        <li class="paper-row">
+          <div class="paper-row-year">2025</div>
+          <div>
+            <h3><a href="https://link.springer.com/chapter/10.1007/978-3-031-94895-4_9" target="_blank" rel="noreferrer">DDDAS Probability Learning for Natural Disaster Change Detection</a></h3>
+            <p>Wei Feng, Adarsh Agrawal, Haifeng Ling, Erik Blasch, et al. Springer LNCS.</p>
+          </div>
+          <span class="topic-chip">Edge vision</span>
+        </li>
+        <li class="paper-row">
+          <div class="paper-row-year">2022</div>
+          <div>
+            <h3><a href="https://www.wwt.com/wwt-research/mitigating-ai-bias-using-debias-gan" target="_blank" rel="noreferrer">Mitigating Bias in AI Using Debias-GAN</a></h3>
+            <p>Adarsh Agrawal et al. WWT Research and NVIDIA GTC.</p>
+          </div>
+          <span class="topic-chip">Responsible AI</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="section practice-section">
+      <div class="section-heading">
+        <p class="section-index">Research practice</p>
+        <h2>Measure, stress, repair</h2>
+        <p>A practical loop for moving from promising model behavior to dependable systems.</p>
+      </div>
+      <div class="practice-grid">
+        <article>
+          <span>Measure</span>
+          <h3>Define the failure before optimizing the score.</h3>
+          <p>Build evaluations that preserve the information the system actually receives, including speech, tool state, and hardware constraints.</p>
+        </article>
+        <article>
+          <span>Stress</span>
+          <h3>Test the conditions a clean benchmark leaves out.</h3>
+          <p>Probe ambiguity, latency, partial failures, distribution shifts, and resource limits before they become production surprises.</p>
+        </article>
+        <article>
+          <span>Repair</span>
+          <h3>Design systems that can recover, not only predict.</h3>
+          <p>Use observability, grounding, state preservation, and evaluation gates to make failure visible and correctable.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section service-section" id="service">
+      <div class="section-heading">
+        <p class="section-index">Research community</p>
+        <h2>Reviewing and service</h2>
+      </div>
+      <div class="service-layout">
+        <div class="service-lead">
+          <p class="service-number">150+</p>
+          <p>completed peer reviews as of August 2026</p>
+        </div>
+        <div class="service-list">
+          <div>
+            <h3>Conference reviewing</h3>
+            <p>NeurIPS, ICLR, Consumer Science Summit, Berlin Machine Learning Workshop, and specialized AI evaluation venues.</p>
+          </div>
+          <div>
+            <h3>Professional community</h3>
+            <p>IEEE Senior Member and contributor to MLCommons AI safety and benchmarking initiatives.</p>
+          </div>
+          <div>
+            <h3>Speaking</h3>
+            <p>Presented bias-mitigation research at NVIDIA GTC and participated in academic and industry research forums.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div>
+        <p class="section-index">Contact</p>
+        <h2>Let’s compare notes.</h2>
+        <p>I’m interested in research collaborations around dependable AI systems and evaluation.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:adarsh.bjb@gmail.com">
+          <i data-lucide="mail" aria-hidden="true"></i>
+          Email
+        </a>
+        <a href="https://github.com/adarshiitd" target="_blank" rel="noreferrer">
+          <i data-lucide="code-2" aria-hidden="true"></i>
+          GitHub
+        </a>
+        <a href="https://linkedin.com/in/adarshagrawal01" target="_blank" rel="noreferrer">
+          <i data-lucide="contact" aria-hidden="true"></i>
+          LinkedIn
+        </a>
+        <a href="https://scholar.google.com/citations?user=fbqZ9wcAAAAJ" target="_blank" rel="noreferrer">
+          <i data-lucide="graduation-cap" aria-hidden="true"></i>
+          Scholar
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Adarsh Agrawal <span aria-hidden="true">/</span> Seattle, Washington</p>
+    <p>Last updated September 2026</p>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>
