@@ -3,6 +3,12 @@ const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
+  paretoproof2026: `@misc{agrawal2026paretoproof,
+  title={ParetoProof: When Does Pareto Selection Help Maintain Lean Proofs?},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/pareto-proof/pareto-proof.pdf}
+}`,
   intentshield2026: `@misc{agrawal2026intentshield,
   title={When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus},
   author={Agrawal, Adarsh},
