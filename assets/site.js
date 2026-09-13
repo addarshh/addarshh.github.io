@@ -3,6 +3,12 @@ const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
+  diverseverification2026: `@misc{agrawal2026diverseverification,
+  title={Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/diverse-verification/diverse-verification.pdf}
+}`,
   paretoproof2026: `@misc{agrawal2026paretoproof,
   title={ParetoProof: When Does Pareto Selection Help Maintain Lean Proofs?},
   author={Agrawal, Adarsh},
