@@ -9,6 +9,12 @@ const citations = {
   year={2026},
   url={https://addarshh.github.io/papers/diverse-verification/diverse-verification.pdf}
 }`,
+  branchcredit2026: `@misc{agrawal2026branchcredit,
+  title={When Process Credit Cannot Matter: Auditing Decision Authority in Verifier-Guided Repair},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/branch-credit/branch-credit-camera-ready.pdf}
+}`,
   paretoproof2026: `@misc{agrawal2026paretoproof,
   title={ParetoProof: When Does Pareto Selection Help Maintain Lean Proofs?},
   author={Agrawal, Adarsh},
