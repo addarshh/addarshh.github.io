@@ -476,93 +476,6 @@ select {
   text-decoration: underline;
 }
 
-.paper-detail {
-  padding-top: 45px;
-}
-
-.paper-header {
-  padding-bottom: 30px;
-}
-
-.paper-header h1 {
-  max-width: 760px;
-  margin-bottom: 12px;
-  font-size: 36px;
-  line-height: 1.15;
-}
-
-.paper-byline {
-  margin-bottom: 18px;
-  color: #424242;
-  font-size: 18px;
-}
-
-.paper-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-
-.paper-actions a,
-.paper-actions button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--link);
-  cursor: pointer;
-}
-
-.paper-actions svg {
-  width: 17px;
-  height: 17px;
-  stroke-width: 1.8;
-}
-
-.paper-section {
-  padding-top: 30px;
-  padding-bottom: 30px;
-  border-top: 1px solid var(--line);
-}
-
-.paper-section h2 {
-  margin-bottom: 12px;
-}
-
-.paper-section p:last-child {
-  margin-bottom: 0;
-}
-
-.paper-figure {
-  padding: 35px 0;
-  border-top: 1px solid var(--line);
-  background: #f8f8f8;
-}
-
-.paper-figure img,
-.paper-result {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.paper-figure figcaption {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.paper-result {
-  margin-top: 20px;
-}
-
-.paper-notes {
-  padding-bottom: 15px;
-}
-
 .bibliography-list article {
   margin-bottom: 20px;
 }
@@ -751,9 +664,6 @@ select {
     font-size: 22px;
   }
 
-  .paper-header h1 {
-    font-size: 30px;
-  }
 }
 
 @media screen and (max-width: 600px) {
@@ -801,19 +711,6 @@ select {
   .profile-photo {
     width: 38%;
     margin-left: 15px;
-  }
-
-  .paper-detail {
-    padding-top: 30px;
-  }
-
-  .paper-header h1 {
-    font-size: 27px;
-  }
-
-  .paper-actions {
-    display: grid;
-    gap: 10px;
   }
 
   .updates-list {

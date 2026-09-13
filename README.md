@@ -9,7 +9,7 @@ Static multi-page professional and research website for GitHub Pages.
 - `experience.html`: professional experience, education, and technical areas
 - `projects.html`: selected public GitHub projects
 - `recognition.html`: service, awards, speaking, certifications, and media coverage
-- `papers/<slug>/`: one self-contained publication page, PDF, figures, and source archive
+- `papers/<slug>/`: publication PDF and optional source archive
 
 ## Local preview
 
