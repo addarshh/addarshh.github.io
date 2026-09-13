@@ -9,6 +9,12 @@ const citations = {
   year={2026},
   url={https://addarshh.github.io/papers/pareto-proof/pareto-proof.pdf}
 }`,
+  proofdebt2026: `@misc{agrawal2026proofdebt,
+  title={ProofDebt: When Does Memory Help Continual Software Repair?},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/proofdebt/proofdebt-camera-ready.pdf}
+}`,
   intentshield2026: `@misc{agrawal2026intentshield,
   title={When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus},
   author={Agrawal, Adarsh},
