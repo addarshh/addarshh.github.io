@@ -3,6 +3,12 @@ const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
+  intentshield2026: `@misc{agrawal2026intentshield,
+  title={When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/intent-shield/}
+}`,
   incident2026: `@misc{agrawal2026incidentmemory,
   title={Incident Memory: Training-Free Operational Memory through Sequential Pattern Mining and Velocity-Stratified Retrieval},
   author={Agrawal, Adarsh and Babu, Rahul Suresh},
