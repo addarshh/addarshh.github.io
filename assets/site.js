@@ -3,6 +3,14 @@ const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
+  textjudges2026: `@inproceedings{agrawal2026textjudges,
+  title={Text Judges Can't Hear: Prosodic Contrast Sets Expose Systematic Bias in Voice AI Evaluation},
+  author={Agrawal, Adarsh},
+  booktitle={Proceedings of the 15th National CCF Conference on Natural Language Processing and Chinese Computing},
+  year={2026},
+  note={Accepted at NLPCC 2026},
+  url={https://addarshh.github.io/papers/text-judges-cant-hear/text-judges-cant-hear.pdf}
+}`,
   actionproof2026: `@misc{agrawal2026actionproof,
   title={ActionProof: Verifying Multi-Step Coding-Agent Transactions},
   author={Agrawal, Adarsh},
