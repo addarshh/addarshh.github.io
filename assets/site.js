@@ -11,6 +11,12 @@ const citations = {
   note={Accepted at NLPCC 2026},
   url={https://addarshh.github.io/papers/text-judges-cant-hear/text-judges-cant-hear.pdf}
 }`,
+  turbogrpo2026: `@misc{agrawal2026turbogrpo,
+  title={TurboGRPO: Audited Speculative Reward Drafting for Efficient GRPO Training},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/turbogrpo/turbogrpo.pdf}
+}`,
   actionproof2026: `@misc{agrawal2026actionproof,
   title={ActionProof: Verifying Multi-Step Coding-Agent Transactions},
   author={Agrawal, Adarsh},
