@@ -3,6 +3,12 @@ const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
+  actionproof2026: `@misc{agrawal2026actionproof,
+  title={ActionProof: Verifying Multi-Step Coding-Agent Transactions},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/action-proof/action-proof.pdf}
+}`,
   test2spec2proof2026: `@misc{agrawal2026test2spec2proof,
   title={When Do Counterexamples Improve Formal Specifications? Failure-Mode and Substrate Dependence in Test-to-Spec Refinement},
   author={Agrawal, Adarsh},
