@@ -3,6 +3,12 @@ const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
+  test2spec2proof2026: `@misc{agrawal2026test2spec2proof,
+  title={When Do Counterexamples Improve Formal Specifications? Failure-Mode and Substrate Dependence in Test-to-Spec Refinement},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/test2spec2proof/test2spec2proof.pdf}
+}`,
   diverseverification2026: `@misc{agrawal2026diverseverification,
   title={Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification},
   author={Agrawal, Adarsh},
