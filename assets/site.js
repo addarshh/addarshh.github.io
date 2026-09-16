@@ -3,6 +3,12 @@ const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
+  belieflifecycle2026: `@misc{agrawal2026belieflifecycle,
+  title={When Does Temporal Validity Help Agent Memory? A Practical Evaluation Across Memory Regimes},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/belief-lifecycle/belief-lifecycle.pdf}
+}`,
   martingaleaudit2026: `@misc{agrawal2026martingaleaudit,
   title={Do LLM Forecasts Change Their Minds Coherently?},
   author={Agrawal, Adarsh},
