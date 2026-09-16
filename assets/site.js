@@ -3,6 +3,12 @@ const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
+  clamporderpropagate2026: `@misc{agrawal2026clamporderpropagate,
+  title={Clamp, Order, Propagate: Strengthening Interventional Reasoning in Foundation Models},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/clamp-order-propagate/clamp-order-propagate.pdf}
+}`,
   belieflifecycle2026: `@misc{agrawal2026belieflifecycle,
   title={When Does Temporal Validity Help Agent Memory? A Practical Evaluation Across Memory Regimes},
   author={Agrawal, Adarsh},
