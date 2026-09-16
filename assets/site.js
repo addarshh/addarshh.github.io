@@ -3,6 +3,12 @@ const siteNav = document.querySelector("[data-site-nav]");
 const toast = document.querySelector("[data-toast]");
 
 const citations = {
+  martingaleaudit2026: `@misc{agrawal2026martingaleaudit,
+  title={Do LLM Forecasts Change Their Minds Coherently?},
+  author={Agrawal, Adarsh},
+  year={2026},
+  url={https://addarshh.github.io/papers/martingale-audit/martingale-audit.pdf}
+}`,
   reliabilityhorizon2026: `@misc{agrawal2026reliabilityhorizon,
   title={The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration},
   author={Agrawal, Adarsh},
