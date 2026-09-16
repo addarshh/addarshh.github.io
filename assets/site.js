@@ -4,7 +4,7 @@ const toast = document.querySelector("[data-toast]");
 
 const citations = {
   clamporderpropagate2026: `@misc{agrawal2026clamporderpropagate,
-  title={Clamp, Order, Propagate: Strengthening Interventional Reasoning in Foundation Models},
+  title={Procedure, Not Causal Vocabulary: A Matched-Access Test of Interventional Reasoning in Foundation Models},
   author={Agrawal, Adarsh},
   year={2026},
   url={https://addarshh.github.io/papers/clamp-order-propagate/clamp-order-propagate.pdf}
