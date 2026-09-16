@@ -13,7 +13,7 @@ const citations = {
   title={When Does Temporal Validity Help Agent Memory? A Practical Evaluation Across Memory Regimes},
   author={Agrawal, Adarsh},
   year={2026},
-  url={https://addarshh.github.io/papers/belief-lifecycle/belief-lifecycle.pdf}
+  url={https://addarshh.github.io/papers/belief-lifecycle/belief-lifecycle-preprint.pdf}
 }`,
   martingaleaudit2026: `@misc{agrawal2026martingaleaudit,
   title={Do LLM Forecasts Change Their Minds Coherently?},
