@@ -7,7 +7,6 @@ Static multi-page professional and research website for GitHub Pages.
 - `index.html`: about, research overview, selected work, and recent updates
 - `research.html`: publications, manuscripts, and Amazon Nova technical reports
 - `experience.html`: professional experience, education, and technical areas
-- `projects.html`: selected public GitHub projects
 - `recognition.html`: service, awards, speaking, certifications, and media coverage
 - `papers/<slug>/`: publication PDF and optional source archive
 

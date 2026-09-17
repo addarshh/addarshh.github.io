@@ -304,7 +304,6 @@ select {
 
 .theme-grid,
 .home-publications,
-.project-grid,
 .education-grid,
 .skill-groups,
 .certification-grid,
@@ -314,7 +313,6 @@ select {
 
 .theme-grid article,
 .home-publications > article,
-.project-card,
 .education-grid article,
 .skill-groups article,
 .certification-grid article,
@@ -327,10 +325,8 @@ select {
 }
 
 .theme-grid article > svg,
-.project-icon,
 .icon-heading > svg,
 .text-action svg,
-.project-link svg,
 .publication-actions svg,
 .scholar-summary svg,
 .primary-links svg {
@@ -341,13 +337,11 @@ select {
   margin-bottom: 0;
 }
 
-.text-action,
-.project-link {
+.text-action {
   display: inline;
 }
 
-.text-action::after,
-.project-link::after {
+.text-action::after {
   content: " \2192";
 }
 
