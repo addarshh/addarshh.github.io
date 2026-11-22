@@ -20,14 +20,14 @@ const citations = {
   author={Agrawal, Adarsh},
   booktitle={NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling},
   year={2026},
-  url={https://openreview.net/forum?id=m9twt6TIfv}
+  url={https://openreview.net/pdf?id=m9twt6TIfv}
 }`,
   reliabilityhorizon2026: `@inproceedings{agrawal2026reliabilityhorizon,
   title={The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration},
   author={Agrawal, Adarsh},
   booktitle={NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling},
   year={2026},
-  url={https://openreview.net/forum?id=emVhXV7PHf}
+  url={https://openreview.net/pdf?id=emVhXV7PHf}
 }`,
   textjudges2026: `@inproceedings{agrawal2026textjudges,
   title={Text Judges Can't Hear: Prosodic Contrast Sets Expose Systematic Bias in Voice AI Evaluation},
@@ -60,7 +60,7 @@ const citations = {
   author={Agrawal, Adarsh},
   booktitle={NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics},
   year={2026},
-  url={https://openreview.net/forum?id=Klbp3xuEkw}
+  url={https://openreview.net/pdf?id=Klbp3xuEkw}
 }`,
   branchcredit2026: `@misc{agrawal2026branchcredit,
   title={When Process Credit Cannot Matter: Auditing Decision Authority in Verifier-Guided Repair},
@@ -85,7 +85,7 @@ const citations = {
   author={Agrawal, Adarsh},
   booktitle={NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics},
   year={2026},
-  url={https://openreview.net/forum?id=N6yfUR70Uu}
+  url={https://openreview.net/pdf?id=N6yfUR70Uu}
 }`,
   incident2026: `@misc{agrawal2026incidentmemory,
   title={Incident Memory: Training-Free Operational Memory through Sequential Pattern Mining and Velocity-Stratified Retrieval},

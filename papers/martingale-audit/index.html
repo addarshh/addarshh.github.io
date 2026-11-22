@@ -42,9 +42,6 @@
  ],
  "datePublished": "2026",
  "url": "https://addarshh.github.io/papers/martingale-audit/",
- "sameAs": [
-  "https://openreview.net/forum?id=m9twt6TIfv"
- ],
  "image": "https://addarshh.github.io/papers/martingale-audit/assets/social-card.jpg",
  "keywords": "large language models, probabilistic forecasting, Bayesian updating, martingales, temporal coherence, prediction markets",
  "abstract": "Forecasting benchmarks score where a model finishes, not how it gets there. We introduce a martingale audit of the full probability path. Under coherent Bayesian updating, expected squared movement M equals expected uncertainty reduction R, so the residual C = M − R has mean zero and requires neither the outcome nor intermediate probability labels. On 73 resolved Polymarket markets across 21 topics, an eight-system LLM panel shows a model–crowd residual gap of +0.061 (95% CI [+0.018, +0.105]; Wilcoxon p = 3.7 × 10−6). Excess movement accounts for 80% of the gap, and the gap persists when both endpoints are matched (+0.048). A headline-only baseline given identical evidence stays near zero (C = +0.008), ruling out the headline channel alone as an explanation. The result holds under equal topic weighting, wild-cluster and jackknife inference, a stochastic elicitation stress test, and on 41 prospectively frozen markets (+0.054). LLM paths reverse direction more often than the crowd (36% versus 27%), and the gap shrinks with external capability (−0.024 per tier). Path coherence exposes revision behavior that endpoint scores miss.",
@@ -266,8 +263,7 @@ td:first-child{color:var(--ink);font-weight:600}
     <h1><span class="t-main">Do LLM Forecasts Change Their Minds Coherently?</span></h1>
     <p class="byline"><a href="/index.html">Adarsh Agrawal</a></p>
     <ul class="links" aria-label="Paper resources">
-      <li><a class="btn primary" href="https://openreview.net/pdf?id=m9twt6TIfv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
-      <li><a class="btn" href="https://openreview.net/forum?id=m9twt6TIfv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg>OpenReview</a></li>
+      <li><a class="btn primary" href="https://openreview.net/pdf?id=m9twt6TIfv" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
       <li><a class="btn" href="martingale-audit-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</a></li>
       <li><a class="btn" href="#cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>Cite</a></li>
     </ul>
@@ -383,7 +379,6 @@ td:first-child{color:var(--ink);font-weight:600}
   <section class="col" id="reproducibility" aria-labelledby="h-repro">
     <h2 id="h-repro">Reproducibility</h2>
     <p>The paper describes a planned release (Appendix F) of the market manifest, prompts, headline snapshots, all 657 attempted primary-panel-plus-anchor paths, and analysis code for the paired estimators, bootstrap intervals, regressions, and sensitivity tables.</p>
-    <p class="note">This page follows the NeurIPS 2026 workshop version of the paper on OpenReview. The site also hosts a <a href="martingale-audit.pdf">preprint version (PDF)</a>.</p>
   </section>
 
   <section class="col" id="cite" aria-labelledby="h-cite">
@@ -393,7 +388,7 @@ td:first-child{color:var(--ink);font-weight:600}
   author={Agrawal, Adarsh},
   booktitle={NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling},
   year={2026},
-  url={https://openreview.net/forum?id=m9twt6TIfv}
+  url={https://openreview.net/pdf?id=m9twt6TIfv}
 }</code></pre></div>
     <div class="copyrow">
       <button type="button" class="btn" data-copy="bibtex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Copy BibTeX</button>

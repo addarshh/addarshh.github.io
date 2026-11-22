@@ -42,9 +42,6 @@
  ],
  "datePublished": "2026",
  "url": "https://addarshh.github.io/papers/intent-shield/",
- "sameAs": [
-  "https://openreview.net/forum?id=N6yfUR70Uu"
- ],
  "image": "https://addarshh.github.io/papers/intent-shield/assets/social-card.jpg",
  "keywords": "formal verification, Verus, specification completeness, LLM agents, correctness feedback, specification repair",
  "abstract": "Correctness feedback can undermine specification-completeness auditing by suppressing programs that satisfy a written contract but violate intended behavior. We evaluate this objective reversal on 12 Verus/Rust tasks across four model families under matched call budgets. Independent no-feedback discovery more than doubles certified-witness yield relative to IntentShield’s corrective-feedback loop (59.0% versus 27.1%). A format-matched iterative control shows that the feedback-content contrast is larger than the independent-restart contrast. The advantage persists across model families and after parser repair. A separate phase-separated execution reproduces the aggregate yield without reusing responses, and most certified witnesses also expose held-out disagreements. Preserving this evidence improves downstream specification repair: Phase-Revised contracts achieve 81.3% implementation success, compared with 62.5% for IS-Revised, while Direct-Revised performs similarly. Both no-feedback witness sources substantially outperform weakened specifications. Available Dafny and Lean evaluations do not reproduce the discovery effect, bounding the finding to the studied Verus/Rust setting. The design rule is clear: freeze and certify evidence of incompleteness before introducing correctness-oriented repair.",
@@ -266,10 +263,8 @@ td:first-child{color:var(--ink);font-weight:600}
     <h1><span class="t-main">When Correctness Feedback Erases Evidence</span><span class="t-sub">Phase-Separated Completeness Auditing in Verus</span></h1>
     <p class="byline"><a href="/index.html">Adarsh Agrawal</a></p>
     <ul class="links" aria-label="Paper resources">
-      <li><a class="btn primary" href="https://openreview.net/pdf?id=N6yfUR70Uu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
-      <li><a class="btn" href="https://openreview.net/forum?id=N6yfUR70Uu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg>OpenReview</a></li>
+      <li><a class="btn primary" href="https://openreview.net/pdf?id=N6yfUR70Uu" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
       <li><a class="btn" href="intent-shield-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</a></li>
-      <li><a class="btn" href="source.zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/></svg>Source (ZIP)</a></li>
       <li><a class="btn" href="#cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>Cite</a></li>
     </ul>
   </header>
@@ -400,8 +395,7 @@ td:first-child{color:var(--ink);font-weight:600}
 
   <section class="col" id="reproducibility" aria-labelledby="h-repro">
     <h2 id="h-repro">Reproducibility</h2>
-    <p>The <a href="source.zip">source archive</a> on this site contains the manuscript source and a supplement with the retained task-level inputs and scripts that reproduce the reported aggregate statistics and figures without model calls. The paper also describes a replay archive with all 1,728 model-facing prompts and raw responses from the primary matrix, the parsed expression for every call, selection scores and rankings, and the outputs of all four certification gates. Neither replays the experiments themselves, which also need the official oracle cases and matching Rust and Verus toolchains.</p>
-    <p class="note">This page follows the NeurIPS 2026 workshop version of the paper on OpenReview. The site also hosts a <a href="intent-shield.pdf">preprint version (PDF)</a>.</p>
+    <p>The paper’s supplementary replay archive contains all 1,728 model-facing prompts and raw responses from the primary matrix, the parsed expression for every call, selection scores and rankings, and the outputs of all four certification gates, along with the format-matched and parser-repair logs. Re-executing the experiments also needs the official oracle cases and matching Rust and Verus toolchains, and provider defaults and stochastic hosted models rule out guaranteed response-identical regeneration.</p>
   </section>
 
   <section class="col" id="cite" aria-labelledby="h-cite">
@@ -411,7 +405,7 @@ td:first-child{color:var(--ink);font-weight:600}
   author={Agrawal, Adarsh},
   booktitle={NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics},
   year={2026},
-  url={https://openreview.net/forum?id=N6yfUR70Uu}
+  url={https://openreview.net/pdf?id=N6yfUR70Uu}
 }</code></pre></div>
     <div class="copyrow">
       <button type="button" class="btn" data-copy="bibtex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Copy BibTeX</button>

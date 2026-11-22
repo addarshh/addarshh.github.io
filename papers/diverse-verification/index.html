@@ -42,9 +42,6 @@
  ],
  "datePublished": "2026",
  "url": "https://addarshh.github.io/papers/diverse-verification/",
- "sameAs": [
-  "https://openreview.net/forum?id=Klbp3xuEkw"
- ],
  "image": "https://addarshh.github.io/papers/diverse-verification/assets/social-card.jpg",
  "keywords": "LLM verification, common-mode failure, verifier ensembles, software testing, formal verification, repository evaluation, verifier routing",
  "abstract": "Agreement among LLM verifiers is not independent evidence of correctness. We measure common-mode failure using 1,152 judgments from six models on executable code and proof artifacts, alongside 141 candidates from 47 Python repositories. Across controlled and repository studies, joint failure is 3.3–9.7 times the rate expected under independence. Statistical tests and robustness analyses establish a consistent pattern: model diversity reduces shared errors, but additional votes do not eliminate them. Changing the checking mechanism produces a stronger operating point. On repository candidates with resolved initial labels, routing Qwen3-Coder and Claude Sonnet 5 disagreements to pytest instead of a third model raises correct acceptance by 33.8 percentage points and lowers wrong acceptance by 5.1 points at lower normalized cost. This advantage persists with pytest-independent labels and external adjudication. Targeted mutation search further exposes the weakness of repeated voting: across three generators, repeated-model verification raises accepted-but-wrong rates by 17–27 percentage points above the nonadaptive baseline, while calibrated cross-model voting remains within three points. These findings establish shared-error measurement and mechanism-diverse checking as central design requirements for reliable LLM verification. Verification strength depends on the independence of the checks, not simply on how many models agree.",
@@ -266,10 +263,8 @@ td:first-child{color:var(--ink);font-weight:600}
     <h1><span class="t-main">Three Agents Are Not Three Verifiers</span><span class="t-sub">Measuring Common-Mode Failure in LLM Verification</span></h1>
     <p class="byline"><a href="/index.html">Adarsh Agrawal</a></p>
     <ul class="links" aria-label="Paper resources">
-      <li><a class="btn primary" href="https://openreview.net/pdf?id=Klbp3xuEkw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
-      <li><a class="btn" href="https://openreview.net/forum?id=Klbp3xuEkw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg>OpenReview</a></li>
+      <li><a class="btn primary" href="https://openreview.net/pdf?id=Klbp3xuEkw" target="_blank" rel="noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
       <li><a class="btn" href="diverse-verification-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</a></li>
-      <li><a class="btn" href="source.zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/></svg>Source (ZIP)</a></li>
       <li><a class="btn" href="#cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>Cite</a></li>
     </ul>
   </header>
@@ -401,8 +396,7 @@ td:first-child{color:var(--ink);font-weight:600}
 
   <section class="col" id="reproducibility" aria-labelledby="h-repro">
     <h2 id="h-repro">Reproducibility</h2>
-    <p>The <a href="source.zip">source archive</a> on this site contains the manuscript source, the figure script, the aggregate values used in the manuscript, and reproducibility notes on models, decoding settings, and policy definitions. The anonymized supplement attached to the <a href="https://openreview.net/forum?id=Klbp3xuEkw">OpenReview submission</a> adds candidate-level evaluation records, verifier and policy decisions, configuration files, analysis code, tests, and documented offline commands for reproducing the reported analyses.</p>
-    <p class="note">This page follows the NeurIPS 2026 workshop version of the paper on OpenReview. The site also hosts a <a href="diverse-verification.pdf">preprint version (PDF)</a>.</p>
+    <p>The paper’s anonymized supplement contains candidate-level evaluation records, verifier and policy decisions, configuration files, analysis code, tests, and documented offline commands for reproducing the reported analyses, along with licensing information and notes on the scope and limitations of the released artifacts.</p>
   </section>
 
   <section class="col" id="cite" aria-labelledby="h-cite">
@@ -412,7 +406,7 @@ td:first-child{color:var(--ink);font-weight:600}
   author={Agrawal, Adarsh},
   booktitle={NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics},
   year={2026},
-  url={https://openreview.net/forum?id=Klbp3xuEkw}
+  url={https://openreview.net/pdf?id=Klbp3xuEkw}
 }</code></pre></div>
     <div class="copyrow">
       <button type="button" class="btn" data-copy="bibtex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Copy BibTeX</button>
