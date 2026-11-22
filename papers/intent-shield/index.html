@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When Correctness Feedback Erases Evidence | Adarsh Agrawal</title>
+<meta name="description" content="A task-level study of how correctness feedback can suppress evidence of incomplete formal specifications, and how a frozen phase boundary preserves that evidence for repair.">
+<meta name="author" content="Adarsh Agrawal">
+<link rel="canonical" href="https://addarshh.github.io/papers/intent-shield/">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Adarsh Agrawal">
+<meta property="og:title" content="When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus">
+<meta property="og:description" content="A task-level study of how correctness feedback can suppress evidence of incomplete formal specifications, and how a frozen phase boundary preserves that evidence for repair.">
+<meta property="og:url" content="https://addarshh.github.io/papers/intent-shield/">
+<meta property="og:image" content="https://addarshh.github.io/papers/intent-shield/assets/social-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Title slide of the talk for When Correctness Feedback Erases Evidence">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus">
+<meta name="twitter:description" content="A task-level study of how correctness feedback can suppress evidence of incomplete formal specifications, and how a frozen phase boundary preserves that evidence for repair.">
+<meta name="twitter:image" content="https://addarshh.github.io/papers/intent-shield/assets/social-card.jpg">
+<meta name="citation_title" content="When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus">
+<meta name="citation_author" content="Agrawal, Adarsh">
+<meta name="citation_publication_date" content="2026">
+<meta name="citation_conference_title" content="NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics">
+<meta name="citation_pdf_url" content="https://openreview.net/pdf?id=N6yfUR70Uu">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus",
+ "name": "When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus",
+ "author": [
+  {
+   "@type": "Person",
+   "name": "Adarsh Agrawal",
+   "url": "https://addarshh.github.io/"
+  }
+ ],
+ "datePublished": "2026",
+ "url": "https://addarshh.github.io/papers/intent-shield/",
+ "sameAs": [
+  "https://openreview.net/forum?id=N6yfUR70Uu"
+ ],
+ "image": "https://addarshh.github.io/papers/intent-shield/assets/social-card.jpg",
+ "keywords": "formal verification, Verus, specification completeness, LLM agents, correctness feedback, specification repair",
+ "abstract": "Correctness feedback can undermine specification-completeness auditing by suppressing programs that satisfy a written contract but violate intended behavior. We evaluate this objective reversal on 12 Verus/Rust tasks across four model families under matched call budgets. Independent no-feedback discovery more than doubles certified-witness yield relative to IntentShield’s corrective-feedback loop (59.0% versus 27.1%). A format-matched iterative control shows that the feedback-content contrast is larger than the independent-restart contrast. The advantage persists across model families and after parser repair. A separate phase-separated execution reproduces the aggregate yield without reusing responses, and most certified witnesses also expose held-out disagreements. Preserving this evidence improves downstream specification repair: Phase-Revised contracts achieve 81.3% implementation success, compared with 62.5% for IS-Revised, while Direct-Revised performs similarly. Both no-feedback witness sources substantially outperform weakened specifications. Available Dafny and Lean evaluations do not reproduce the discovery effect, bounding the finding to the studied Verus/Rust setting. The design rule is clear: freeze and certify evidence of incompleteness before introducing correctness-oriented repair.",
+ "isPartOf": {
+  "@type": "PublicationEvent",
+  "name": "NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics"
+ },
+ "encoding": {
+  "@type": "MediaObject",
+  "contentUrl": "https://openreview.net/pdf?id=N6yfUR70Uu",
+  "encodingFormat": "application/pdf"
+ }
+}
+</script>
+<style>
+:root{--a1:#0F4D92;--a2:#B64342;--a3:#3A7D44;}
+:root{
+  --ink:#18202E; --body:#2B3442; --muted:#5B6573; --faint:#8A93A0; --rule:#D9DEE5; --fog:#F3F5F8; --paper:#FFFFFF;
+  --signal:#0F4D92; --signal-deep:#0B3A6E;
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,"Iowan Old Style",Georgia,serif;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --measure:42rem; --wide:68rem; --gutter:clamp(1.25rem,4vw,2.5rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--body);font:400 1.125rem/1.65 var(--serif);font-kerning:normal;font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:var(--signal);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{color:var(--signal-deep);text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:1rem;top:1rem;z-index:20;background:var(--paper);padding:.5rem .8rem;font:600 .95rem/1 var(--sans)}
+
+/* site chrome: same markup and rules as assets/site.css */
+.site-header,.site-footer{color:#111;font:400 16px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif}
+.site-header{position:relative;min-height:57px;border-bottom:1px solid #e8e8e8}
+.nav-shell,.page-shell{width:100%;max-width:800px;margin-right:auto;margin-left:auto;padding-right:30px;padding-left:30px}
+.nav-shell{position:relative;min-height:56px}
+.nav-shell::after,.footer-inner::after{display:table;clear:both;content:""}
+.site-name{float:left;margin-bottom:0;color:#424242;font-size:26px;font-weight:300;line-height:56px;text-decoration:none}
+.site-name:visited,.site-name:hover,.site-name:focus-visible{color:#424242;text-decoration:none}
+.site-nav{float:right;line-height:56px}
+.site-nav a,.site-nav a:visited{color:#111;line-height:1.5;text-decoration:none}
+.site-nav a:hover,.site-nav a:focus-visible{color:#111;text-decoration:underline}
+.site-nav a:not(:last-child){margin-right:20px}
+.menu-button{display:none;border:0;background:transparent;color:#424242;cursor:pointer}
+.menu-button svg{width:18px;height:18px;stroke-width:1.8}
+
+main{padding:0 var(--gutter)}
+.col{max-width:var(--measure);margin-left:auto;margin-right:auto}
+.wide{max-width:var(--wide);margin-left:auto;margin-right:auto}
+.mid{max-width:56rem;margin-left:auto;margin-right:auto}
+
+/* hero */
+.hero{padding:clamp(2.5rem,7vw,4.75rem) 0 0}
+.venue{font:500 .95rem/1.45 var(--sans);color:var(--muted);margin:0 0 1.1rem}
+.venue a{color:inherit}
+h1{margin:0;color:var(--ink);font-family:var(--serif);font-weight:700;letter-spacing:-.012em}
+h1 .t-main{display:block;font-size:clamp(2.05rem,1.2rem + 3.3vw,3.35rem);line-height:1.08;text-wrap:balance}
+h1 .t-sub{display:block;margin-top:.55rem;font-size:clamp(1.2rem,.98rem + .95vw,1.65rem);line-height:1.28;font-weight:400;letter-spacing:0;color:var(--body);text-wrap:balance}
+.byline{margin:1.35rem 0 0;font:400 1.02rem/1.5 var(--sans);color:var(--muted)}
+.byline a{color:var(--ink);font-weight:600;text-decoration:none}
+.byline a:hover{text-decoration:underline}
+.links{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.6rem 0 0;padding:0;list-style:none}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.62rem .95rem;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);font:500 .95rem/1 var(--sans);text-decoration:none;cursor:pointer}
+.btn:visited{color:var(--ink)}
+.btn:hover{border-color:var(--ink);color:var(--ink);text-decoration:none}
+.btn.primary,.btn.primary:visited{background:var(--signal);border-color:var(--signal);color:#fff}
+.btn.primary:hover{background:var(--signal-deep);border-color:var(--signal-deep);color:#fff}
+.btn svg{width:1.05em;height:1.05em;flex:none}
+
+/* the claim: the page's one loud element */
+.claim{margin:2.4rem auto 0;color:var(--ink);font:400 clamp(1.24rem,1.04rem + .8vw,1.52rem)/1.5 var(--serif);text-wrap:pretty}
+.n{font-weight:700;white-space:nowrap}
+.nw{white-space:nowrap}
+.c1{color:var(--a1)}.c2{color:var(--a2)}.c3{color:var(--a3)}.c4{color:var(--a4)}.c5{color:var(--a5)}
+
+/* figures */
+figure{margin:2.6rem auto 0}
+.plate{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:clamp(.6rem,2vw,1.4rem)}
+figure img{display:block;width:100%;height:auto}
+figcaption{max-width:var(--measure);margin:.85rem auto 0;font:400 .9rem/1.55 var(--sans);color:var(--muted)}
+figcaption b{color:var(--ink);font-weight:600}
+
+/* sections */
+section{margin-top:clamp(3.2rem,7vw,4.75rem)}
+h2{margin:0 0 1rem;color:var(--ink);font:700 clamp(1.45rem,1.2rem + .9vw,1.85rem)/1.2 var(--serif);letter-spacing:-.005em}
+h3{margin:2.1rem 0 .55rem;color:var(--ink);font:600 1.12rem/1.35 var(--sans)}
+p{margin:0 0 1rem}
+.sc{font-variant-caps:all-small-caps;letter-spacing:.04em;font-variant-numeric:lining-nums}
+.eq{margin:1.25rem 0;padding:.9rem 1.1rem;background:var(--fog);border-radius:8px;font:400 1.08rem/1.9 var(--serif);color:var(--ink);overflow-x:auto}
+.eq i{font-style:italic}
+.note{font:400 .95rem/1.55 var(--sans);color:var(--muted)}
+
+/* findings: number hangs on the left, sentence on the right */
+.findings{list-style:none;margin:1.4rem auto 0;padding:0}
+.findings li{display:grid;grid-template-columns:13rem minmax(0,1fr);gap:1.5rem;padding:1.15rem 0;border-top:1px solid var(--rule)}
+.findings li:last-child{border-bottom:1px solid var(--rule)}
+.findings .k{color:var(--ink);font:650 1.42rem/1.25 var(--sans);letter-spacing:-.01em}
+.findings .v{margin:0;font-size:1.05rem;line-height:1.6}
+
+/* ordered procedures (real sequences only) */
+.steps{margin:1.2rem 0 1.4rem;padding:0;list-style:none;counter-reset:step}
+.steps li{position:relative;padding:.1rem 0 .9rem 2.6rem;counter-increment:step}
+.steps li::before{content:counter(step);position:absolute;left:0;top:.15rem;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--ink);color:#fff;font:600 .9rem/1.75rem var(--sans);text-align:center}
+.steps b{color:var(--ink)}
+
+/* term lists: limitations, study arms */
+.terms{margin:1.2rem 0 1.2rem}
+.terms dt{margin-top:1.1rem;color:var(--ink);font:600 1.02rem/1.4 var(--sans)}
+.terms dt:first-child{margin-top:0}
+.terms dd{margin:.25rem 0 0}
+
+/* tables */
+.tablewrap{overflow-x:auto;margin:1.4rem 0}
+table{border-collapse:collapse;width:100%;font:400 .95rem/1.45 var(--sans);font-variant-numeric:lining-nums tabular-nums}
+th,td{padding:.6rem .75rem .6rem 0;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+th{color:var(--muted);font-weight:600}
+td:first-child{color:var(--ink);font-weight:600}
+
+/* slide viewer */
+.deck{display:grid;grid-template-columns:minmax(0,1fr) 16.5rem;gap:1.75rem;align-items:start;margin-top:1.4rem}
+.deck-stage{position:relative;aspect-ratio:16/9;background:var(--fog);border:1px solid var(--rule);border-radius:10px;overflow:hidden;cursor:pointer}
+.deck-stage img{display:block;width:100%;height:100%;object-fit:contain}
+.deck-stage:fullscreen{background:#000;border:0;border-radius:0}
+.deck-bar{display:flex;align-items:center;gap:.5rem;margin-top:.8rem;font:500 .92rem/1 var(--sans);color:var(--muted)}
+.ibtn{display:inline-grid;place-items:center;width:2.4rem;height:2.4rem;padding:0;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}
+.ibtn:hover{border-color:var(--ink)}
+.ibtn:disabled{color:var(--faint);border-color:var(--rule);cursor:default}
+.ibtn svg{width:1.15rem;height:1.15rem}
+.deck-count{min-width:7.2rem;text-align:center;font-variant-numeric:tabular-nums}
+.deck-bar .grow{flex:1}
+.deck-bar .dl{display:inline-flex;align-items:center;gap:.45rem;color:var(--signal);text-decoration:none}
+.deck-bar .dl:hover{text-decoration:underline}
+.deck-bar .dl svg{width:1.05rem;height:1.05rem}
+.outline{list-style:none;margin:0;padding:0;font:400 .9rem/1.35 var(--sans)}
+.outline button{display:grid;grid-template-columns:1.7rem minmax(0,1fr);width:100%;padding:.42rem .55rem;border:0;border-radius:6px;background:none;color:var(--muted);font:inherit;text-align:left;cursor:pointer}
+.outline button:hover{color:var(--ink)}
+.outline button span:first-child{color:var(--faint);font-variant-numeric:tabular-nums}
+.outline button[aria-current="true"]{background:var(--fog);color:var(--ink);font-weight:600}
+.outline button[aria-current="true"] span:first-child{color:var(--ink)}
+
+/* citation */
+.bib{margin:1.2rem 0 0;padding:1.1rem 1.25rem;background:var(--fog);border-radius:10px;overflow-x:auto}
+.bib pre{margin:0;font:400 .84rem/1.65 var(--mono);color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+.copyrow{display:flex;align-items:center;gap:.9rem;margin-top:.8rem}
+.copyrow .status{font:400 .9rem/1 var(--sans);color:var(--muted)}
+
+/* related */
+.related{list-style:none;margin:1rem 0 0;padding:0}
+.related li{padding:.85rem 0;border-top:1px solid var(--rule)}
+.related li:last-child{border-bottom:1px solid var(--rule)}
+.related a{font-weight:600}
+.related .kind{display:block;margin-top:.15rem;font:400 .88rem/1.4 var(--sans);color:var(--muted)}
+
+/* footer: same markup and rules as assets/site.css */
+.site-footer{margin-top:clamp(4rem,9vw,6rem);padding:30px 0;border-top:1px solid #e8e8e8}
+.footer-inner{color:#828282;font-size:15px}
+.footer-inner>div:first-child,.footer-links{float:left;width:50%}
+.footer-inner strong,.footer-inner span{display:block}
+.footer-inner strong{color:#828282;font-weight:400}
+.footer-links a{display:block;color:#2a7ae2;text-decoration:none}
+.footer-links a:visited{color:#1756a9}
+.footer-links a:hover,.footer-links a:focus-visible{color:#113f7c;text-decoration:underline}
+
+@media screen and (max-width:800px){
+  .page-shell,.nav-shell{max-width:770px;padding-right:15px;padding-left:15px}
+}
+@media screen and (max-width:600px){
+  .site-nav{position:absolute;z-index:30;top:48px;right:15px;display:none;min-width:150px;padding:5px 0;border:1px solid #e8e8e8;border-radius:5px;background:#fff;line-height:1.5;text-align:right}
+  .site-nav.is-open{display:block}
+  .site-nav a{display:block;margin:0;padding:5px 10px}
+  .site-nav a:not(:last-child){margin-right:0}
+  .menu-button{position:absolute;z-index:31;top:9px;right:15px;display:grid;width:36px;height:38px;padding:0;place-items:center}
+  .footer-inner>div:first-child,.footer-links{float:none;width:100%}
+  .footer-links{margin-top:15px}
+}
+@media screen and (max-width:390px){
+  .site-name{font-size:23px}
+}
+
+@media (max-width:960px){
+  .deck{grid-template-columns:1fr}
+  .deck .outline-wrap{display:none}
+}
+@media (max-width:720px){
+  body{font-size:1.0625rem}
+  .findings li{grid-template-columns:1fr;gap:.3rem}
+  .findings .k{font-size:1.3rem}
+  .deck-bar .dl span{display:none}
+}
+@media print{
+  .site-header,.links,.deck,.copyrow,.site-footer{display:none}
+  body{font-size:11pt}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="site-name" href="/index.html">Adarsh Agrawal</a>
+    <button class="menu-button" type="button" data-menu-toggle data-icon-x="&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M18 6 6 18&quot;/&gt;&lt;path d=&quot;m6 6 12 12&quot;/&gt;&lt;/svg&gt;" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation" title="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/></svg></button>
+    <nav class="site-nav" id="site-nav" data-site-nav aria-label="Primary navigation">
+      <a href="/index.html">About</a>
+      <a href="/experience.html">CV</a>
+      <a href="/research.html">Research</a>
+      <a href="/recognition.html">Others</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article>
+  <header class="hero col">
+    <p class="venue">Poster at the NeurIPS 2026 Workshop on AI for Verifiable Coding</p>
+    <h1><span class="t-main">When Correctness Feedback Erases Evidence</span><span class="t-sub">Phase-Separated Completeness Auditing in Verus</span></h1>
+    <p class="byline"><a href="/index.html">Adarsh Agrawal</a></p>
+    <ul class="links" aria-label="Paper resources">
+      <li><a class="btn primary" href="https://openreview.net/pdf?id=N6yfUR70Uu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
+      <li><a class="btn" href="https://openreview.net/forum?id=N6yfUR70Uu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg>OpenReview</a></li>
+      <li><a class="btn" href="intent-shield-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</a></li>
+      <li><a class="btn" href="source.zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/></svg>Source (ZIP)</a></li>
+      <li><a class="btn" href="#cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>Cite</a></li>
+    </ul>
+  </header>
+
+  <p class="claim col">Feedback that helps a model fix a program works against an audit that needs wrong programs as evidence. On 12 Verus/Rust tasks, discovery without correctness feedback certified a completeness witness in <span class="n c1">85 of 144</span> outcomes; IntentShield’s feedback loop did so in <span class="n c2">39</span>. In a separate 16-task study, contracts repaired from the frozen evidence reached <span class="n c3">81.3%</span> implementation success, against <span class="n c2">62.5%</span> for contracts repaired from IntentShield’s candidates.</p>
+
+  <figure class="wide" id="figure-1">
+  <div class="plate"><img src="assets/fig1-phase-separation.webp" width="1631" height="695" alt="Diagram of two pipelines. IntentShield keeps corrective feedback inside discovery, revising the candidate between calls, and certifies 39 of 144 witnesses. The phase-separated pipeline runs discovery without feedback, freezes the exact candidate at a boundary, certifies 85 of 144 witnesses, then repairs the specification and synthesizes an implementation, succeeding on 39 of 48." decoding="async"></div>
+  <figcaption><b>Figure 1.</b> Correctness feedback enters at different times. IntentShield uses it while searching for a witness. Phase uses the same discovery policy as Direct and introduces repair feedback only after the candidate has been frozen. The downstream result is from a separate 16-task study.</figcaption>
+</figure>
+
+  <section class="col abstract" id="abstract" aria-labelledby="h-abstract">
+    <h2 id="h-abstract">Abstract</h2>
+    <p>Correctness feedback can undermine specification-completeness auditing by suppressing programs that satisfy a written contract but violate intended behavior. We evaluate this objective reversal on 12 Verus/Rust tasks across four model families under matched call budgets. Independent no-feedback discovery more than doubles certified-witness yield relative to IntentShield’s corrective-feedback loop (59.0% versus 27.1%). A format-matched iterative control shows that the feedback-content contrast is larger than the independent-restart contrast. The advantage persists across model families and after parser repair. A separate phase-separated execution reproduces the aggregate yield without reusing responses, and most certified witnesses also expose held-out disagreements. Preserving this evidence improves downstream specification repair: Phase-Revised contracts achieve 81.3% implementation success, compared with 62.5% for IS-Revised, while Direct-Revised performs similarly. Both no-feedback witness sources substantially outperform weakened specifications. Available Dafny and Lean evaluations do not reproduce the discovery effect, bounding the finding to the studied Verus/Rust setting. The design rule is clear: freeze and certify evidence of incompleteness before introducing correctness-oriented repair.</p>
+  </section>
+
+  <section id="findings" aria-labelledby="h-findings">
+    <h2 class="col" id="h-findings">Key findings</h2>
+    <ul class="findings mid">
+      <li><div class="k"><span class="c1">59.0%</span> vs <span class="c2">27.1%</span></div><p class="v">Certified-witness yield, Direct against IntentShield, with 144 outcomes per policy. Direct leads on 11 of 12 tasks (exact sign test <span class="nw">p = 0.006),</span> and the mean task-level difference is <span class="nw">31.9 points</span>, with a task-bootstrap 95% interval of [21.5, 38.9].</p></li>
+      <li><div class="k">69.6%</div><p class="v">Share of that 31.9-point gap, <span class="nw">22.2 points</span>, that separates IntentShield from a format-matched control. The control keeps IntentShield’s template and candidate history but replaces every feedback field with “[not evaluated]”, and it certifies 49.3%. Independent restarts account for the other <span class="nw">9.7 points</span>. This is an observed-rate decomposition, not a mediation analysis.</p></li>
+      <li><div class="k">92.9%</div><p class="v">Of Direct’s 85 certified witnesses, 79 also disagree on a test case withheld from certification.</p></li>
+      <li><div class="k"><span class="nw">85 = 85</span></div><p class="v">A separate phase-separated run, 48 hours later with fresh requests and no reused responses, certifies the same number of witnesses. Cell-level agreement is 84.7% (Cohen’s <span class="nw">κ = 0.68),</span> and 43 of the 74 co-certified cells hold distinct expressions.</p></li>
+      <li><div class="k"><span class="c3">81.3%</span> vs <span class="c2">62.5%</span></div><p class="v">Implementation success with Phase-Revised versus IS-Revised contracts (16 tasks, three attempts each). Phase-Revised wins on nine tasks and ties on seven, with no losses (two-sided sign test <span class="nw">p = 0.004);</span> Direct-Revised reaches 77.1%.</p></li>
+    </ul>
+  </section>
+
+  <section class="wide" id="slides" aria-labelledby="h-slides">
+    <h2 class="col" id="h-slides">Talk slides</h2>
+    <div class="deck" data-deck data-count="13" data-base="assets/slides/slide-" data-titles="[&quot;When Correctness Feedback Erases Evidence&quot;, &quot;A verified program can still be wrong&quot;, &quot;A certified witness must pass four gates&quot;, &quot;Feedback that helps synthesis hurts auditing&quot;, &quot;Phase separation: freeze, then repair&quot;, &quot;A matched-budget study on 12 Verus tasks&quot;, &quot;Feedback more than halves witness yield&quot;, &quot;Feedback content drives most of the gap&quot;, &quot;Robust across model families and syntax repair&quot;, &quot;A separate Phase run reproduces discovery&quot;, &quot;Preserved witnesses yield better contracts&quot;, &quot;Bounded to Verus: no transfer to Dafny or Lean&quot;, &quot;Freeze the witness, certify the gap, then repair&quot;]" role="region" aria-roledescription="carousel" aria-label="Talk slides">
+      <div>
+        <div class="deck-stage" tabindex="0" aria-label="Current slide. Use the arrow keys to move between slides.">
+          <img src="assets/slides/slide-01.webp" width="1600" height="900" alt="Slide 1 of 13: When Correctness Feedback Erases Evidence" decoding="async">
+        </div>
+        <div class="deck-bar">
+          <button type="button" class="ibtn" data-prev aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="deck-count" aria-live="polite">Slide 1 of 13</span>
+          <button type="button" class="ibtn" data-next aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button>
+          <span class="grow"></span>
+          <a class="dl" href="intent-shield-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span>Download PDF</span></a>
+          <button type="button" class="ibtn" data-fullscreen aria-label="Show slides full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+        </div>
+        <noscript><p class="note">The slide viewer needs JavaScript. <a href="intent-shield-slides.pdf">Download the slides as a PDF</a>.</p></noscript>
+      </div>
+      <nav class="outline-wrap" aria-label="Slide list">
+        <ol class="outline">
+          <li><button type="button" aria-current="true"><span>1</span><span>When Correctness Feedback Erases Evidence</span></button></li>
+          <li><button type="button" aria-current="false"><span>2</span><span>A verified program can still be wrong</span></button></li>
+          <li><button type="button" aria-current="false"><span>3</span><span>A certified witness must pass four gates</span></button></li>
+          <li><button type="button" aria-current="false"><span>4</span><span>Feedback that helps synthesis hurts auditing</span></button></li>
+          <li><button type="button" aria-current="false"><span>5</span><span>Phase separation: freeze, then repair</span></button></li>
+          <li><button type="button" aria-current="false"><span>6</span><span>A matched-budget study on 12 Verus tasks</span></button></li>
+          <li><button type="button" aria-current="false"><span>7</span><span>Feedback more than halves witness yield</span></button></li>
+          <li><button type="button" aria-current="false"><span>8</span><span>Feedback content drives most of the gap</span></button></li>
+          <li><button type="button" aria-current="false"><span>9</span><span>Robust across model families and syntax repair</span></button></li>
+          <li><button type="button" aria-current="false"><span>10</span><span>A separate Phase run reproduces discovery</span></button></li>
+          <li><button type="button" aria-current="false"><span>11</span><span>Preserved witnesses yield better contracts</span></button></li>
+          <li><button type="button" aria-current="false"><span>12</span><span>Bounded to Verus: no transfer to Dafny or Lean</span></button></li>
+          <li><button type="button" aria-current="false"><span>13</span><span>Freeze the witness, certify the gap, then repair</span></button></li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="method" aria-labelledby="h-method">
+    <div class="col">
+      <h2 id="h-method">Auditing a contract for what it forgot</h2>
+      <p>A verifier can discharge every obligation in a contract while the program still violates its author’s intent. A <em>completeness witness</em> makes that gap concrete: a program the weakened contract accepts but the task rejects. A candidate counts as a certified witness only if it passes four gates:</p>
+      <ol class="steps">
+        <li><b>Admitted.</b> It verifies under the weakened contract.</li>
+        <li><b>Gap-exposing.</b> Restoring the omitted postcondition makes verification fail.</li>
+        <li><b>Executable.</b> It compiles and runs as Rust.</li>
+        <li><b>Wrong.</b> It disagrees with at least one official test case.</li>
+      </ol>
+      <p>Ordinary synthesis uses compiler, verifier, and test feedback to move a candidate toward intended behavior. In an audit, the same feedback erases the evidence. IntentShield keeps corrective feedback inside discovery. Direct makes three independent calls with nothing carried over. Phase runs Direct’s discovery protocol again as a separate execution, freezes the selected candidate, certifies it, and only then hands it to repair (<a href="#figure-1">Figure 1</a>). Every policy gets the same three-call budget on 12 VeriContest tasks across four model families: Claude Sonnet 5, DeepSeek V3.2, Devstral 2, and Qwen3-Coder-480B.</p>
+    </div>
+  </section>
+
+  <section id="yield" aria-labelledby="h-yield">
+    <div class="col">
+      <h2 id="h-yield">Feedback more than halves witness yield</h2>
+      <p>Direct certifies 85 of 144 outcomes (59.0%) and IntentShield 39 (27.1%). The gap appears in both task strata: <span class="nw">38.3 points</span> on the five residual-contract tasks and <span class="nw">27.4 points</span> on the seven total-omission controls. The only reversal is cf50A, where IntentShield certifies four outcomes to Direct’s two.</p>
+    </div>
+    <figure class="mid" id="figure-2">
+  <div class="plate"><img src="assets/fig2-witness-yield.webp" width="1650" height="817" alt="Dot plot of certified-witness rates for 12 Verus tasks, Direct against IntentShield. Direct is higher on 11 tasks; cf50A is the only reversal." decoding="async" loading="lazy"></div>
+  <figcaption><b>Figure 2.</b> Certified-witness rates for each Verus task. Each point summarizes 12 model-run outcomes per policy. The task is the independent unit.</figcaption>
+</figure>
+  </section>
+
+  <section id="robustness" aria-labelledby="h-robustness">
+    <div class="col">
+      <h2 id="h-robustness">Syntax repair does not close the gap</h2>
+      <p>A parser-repair wrapper closes unmatched brackets, removes semicolons, and extracts the expression before certification. It cuts parse failures from 34.0% to 11.8% for IntentShield and from 10.4% to 4.2% for Direct, yet certified yield stays <span class="nw">27.1 points</span> apart (63.2% versus 36.1%).</p>
+    </div>
+    <figure class="mid" id="figure-5">
+  <div class="plate"><img src="assets/fig5-parser-repair.webp" width="1408" height="516" alt="Two bar charts. Certified witness yield: Direct raw 59.0%, repaired 63.2%; IntentShield raw 27.1%, repaired 36.1%. Parse failures: Direct raw 10.4%, repaired 4.2%; IntentShield raw 34.0%, repaired 11.8%." decoding="async" loading="lazy"></div>
+  <figcaption><b>Figure 5.</b> Parser repair before certification lowers parse-failure rates in both policies but retains a 27.1-point certified-yield difference. Bars show observed episode rates without confidence intervals.</figcaption>
+</figure>
+  </section>
+
+  <section id="repair" aria-labelledby="h-repair">
+    <div class="col">
+      <h2 id="h-repair">Preserved witnesses make better contracts</h2>
+      <p>Incomplete contracts hide real failures: 42 of 48 implementations verify against the weakened contracts, but only 14 still verify once the omitted postcondition is restored. Repairing contracts from preserved witnesses recovers most of that gap. Phase-Revised contracts reach 39 of 48 successful implementations (81.3%), or 88.6% of the True-Spec count, against 30 of 48 (62.5%) for IS-Revised.</p>
+    </div>
+    <figure class="mid" id="figure-3">
+  <div class="plate"><img src="assets/fig3-downstream-repair.webp" width="1591" height="758" alt="Two bar charts. A: 42 of 48 implementations verify under weakened contracts versus 14 of 48 under restored contracts. B: successful implementations by specification: Original 14 of 48, IS-Revised 30, Direct-Revised 37, Phase-Revised 39, True-Spec 44." decoding="async" loading="lazy"></div>
+  <figcaption><b>Figure 3.</b> Downstream consequences of incomplete and repaired specifications. Panel A compares weakened-contract verification with restored-contract success in the Original condition. Panel B reports successful implementations across all five conditions (16 tasks, three attempts each). True-Spec uses the intended contract. Bars show observed rates, not confidence intervals.</figcaption>
+</figure>
+  </section>
+
+  <section id="limitations" aria-labelledby="h-limitations">
+    <div class="col">
+      <h2 id="h-limitations">Scope and limitations</h2>
+      <dl class="terms">
+        <dt>Bounded to Verus</dt><dd>Available Dafny and Lean evaluations do not reproduce the discovery effect (<a href="#figure-4">Figure 4</a>). In the Dafny Qwen stratum IntentShield leads by <span class="nw">8.3 points</span>, and in Lean the phase-separated policy is lowest.</dd>
+        <dt>Narrow benchmark</dt><dd>Twelve competitive-programming functions with expression-level Rust. An eight-task extension agrees (51.0% versus 21.9%) but is preliminary.</dd>
+        <dt>Hosted models</dt><dd>Provider-default decoding and non-seeded repeats limit exact replay; all 1,728 primary prompts and responses are archived.</dd>
+        <dt>Why Verus may differ</dt><dd>Rust typing, ownership, and arithmetic obligations give feedback a rich correction surface. This is a substrate-specific hypothesis, not a measured mediator.</dd>
+      </dl>
+      <p>The paper recommends treating witness reports like fuzzer findings: triage them with the specification author before changing code or contracts.</p>
+    </div>
+    <figure class="mid" id="figure-4">
+  <div class="plate"><img src="assets/fig4-substrates.webp" width="1411" height="660" alt="Three bar charts by proof substrate. Verus: Direct and Phase 85 of 144, IntentShield 39 of 144. Dafny: Direct 21 of 24, IntentShield 23 of 24. Lean: no context 14 of 48, Direct 12, IntentShield 14, Phase 8." decoding="async" loading="lazy"></div>
+  <figcaption><b>Figure 4.</b> The primary Verus direction does not reproduce in the available Dafny and Lean evaluations. The task matrices differ and should not be compared as measures of absolute difficulty.</figcaption>
+</figure>
+  </section>
+
+  <section class="col" id="reproducibility" aria-labelledby="h-repro">
+    <h2 id="h-repro">Reproducibility</h2>
+    <p>The <a href="source.zip">source archive</a> on this site contains the manuscript source and a supplement with the retained task-level inputs and scripts that reproduce the reported aggregate statistics and figures without model calls. The paper also describes a replay archive with all 1,728 model-facing prompts and raw responses from the primary matrix, the parsed expression for every call, selection scores and rankings, and the outputs of all four certification gates. Neither replays the experiments themselves, which also need the official oracle cases and matching Rust and Verus toolchains.</p>
+    <p class="note">This page follows the NeurIPS 2026 workshop version of the paper on OpenReview. The site also hosts a <a href="intent-shield.pdf">preprint version (PDF)</a>.</p>
+  </section>
+
+  <section class="col" id="cite" aria-labelledby="h-cite">
+    <h2 id="h-cite">Cite this paper</h2>
+    <div class="bib"><pre><code id="bibtex">@inproceedings{agrawal2026intentshield,
+  title={When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus},
+  author={Agrawal, Adarsh},
+  booktitle={NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics},
+  year={2026},
+  url={https://openreview.net/forum?id=N6yfUR70Uu}
+}</code></pre></div>
+    <div class="copyrow">
+      <button type="button" class="btn" data-copy="bibtex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Copy BibTeX</button>
+      <span class="status" data-copy-status aria-live="polite"></span>
+    </div>
+  </section>
+
+  <section class="col" id="related" aria-labelledby="h-related">
+    <h2 id="h-related">Related papers</h2>
+    <ul class="related">
+      <li><a href="/papers/diverse-verification/">Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification</a><span class="kind">Project page, also at this workshop</span></li>
+      <li><a href="/papers/test2spec2proof/test2spec2proof.pdf">When Do Counterexamples Improve Formal Specifications? Failure-Mode and Substrate Dependence in Test-to-Spec Refinement</a><span class="kind">Paper (PDF)</span></li>
+      <li><a href="/papers/branch-credit/branch-credit-camera-ready.pdf">When Process Credit Cannot Matter: Auditing Decision Authority in Verifier-Guided Repair</a><span class="kind">Paper (PDF)</span></li>
+    </ul>
+    <p class="note" style="margin-top:1rem"><a href="/research.html">All publications and technical reports</a></p>
+  </section>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="page-shell footer-inner">
+    <div><strong>Adarsh Agrawal</strong><span>Senior Applied Scientist at Amazon</span></div>
+    <div class="footer-links">
+      <a href="mailto:adarsh.bjb@gmail.com">Email</a>
+      <a href="https://scholar.google.com/citations?user=fbqZ9wcAAAAJ&amp;hl=en" target="_blank" rel="noreferrer">Scholar</a>
+      <a href="https://github.com/addarshh" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://linkedin.com/in/adarshagrawal01" target="_blank" rel="noreferrer">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const deck = document.querySelector('[data-deck]');
+  if (deck) {
+    const n = +deck.dataset.count, base = deck.dataset.base, titles = JSON.parse(deck.dataset.titles);
+    const stage = deck.querySelector('.deck-stage'), img = stage.querySelector('img');
+    const count = deck.querySelector('.deck-count');
+    const prev = deck.querySelector('[data-prev]'), next = deck.querySelector('[data-next]');
+    const items = [...deck.querySelectorAll('.outline button')];
+    const src = (k) => base + String(k).padStart(2, '0') + '.webp';
+    let i = 1;
+    const show = (k) => {
+      i = Math.min(n, Math.max(1, k));
+      img.src = src(i);
+      img.alt = 'Slide ' + i + ' of ' + n + ': ' + titles[i - 1];
+      count.textContent = 'Slide ' + i + ' of ' + n;
+      prev.disabled = i === 1;
+      next.disabled = i === n;
+      items.forEach((b, j) => b.setAttribute('aria-current', j + 1 === i ? 'true' : 'false'));
+      if (i < n) { const pre = new Image(); pre.src = src(i + 1); }
+    };
+    prev.addEventListener('click', () => show(i - 1));
+    next.addEventListener('click', () => show(i + 1));
+    items.forEach((b, j) => b.addEventListener('click', () => show(j + 1)));
+    stage.addEventListener('click', (e) => {
+      const r = stage.getBoundingClientRect();
+      show(i + (e.clientX - r.left > r.width / 2 ? 1 : -1));
+    });
+    deck.addEventListener('keydown', (e) => {
+      const keys = { ArrowRight: i + 1, PageDown: i + 1, ArrowLeft: i - 1, PageUp: i - 1, Home: 1, End: n };
+      if (e.key in keys && !e.target.closest('.outline')) { show(keys[e.key]); e.preventDefault(); }
+    });
+    let x0 = null;
+    stage.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+      x0 = null;
+    });
+    const fs = deck.querySelector('[data-fullscreen]');
+    if (!stage.requestFullscreen) fs.hidden = true;
+    else fs.addEventListener('click', () => (document.fullscreenElement ? document.exitFullscreen() : stage.requestFullscreen()));
+    const m = location.hash.match(/^#slide-(\d+)$/);
+    show(m ? +m[1] : 1);
+    if (m) deck.scrollIntoView();
+  }
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const nav = document.querySelector('[data-site-nav]');
+  if (toggle && nav) {
+    const icons = { open: toggle.dataset.iconX, closed: toggle.innerHTML };
+    const setMenu = (open) => {
+      nav.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      toggle.setAttribute('title', open ? 'Close navigation' : 'Open navigation');
+      toggle.innerHTML = open ? icons.open : icons.closed;
+    };
+    toggle.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
+    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('resize', () => { if (window.innerWidth > 860) setMenu(false); });
+  }
+  const copy = document.querySelector('[data-copy]');
+  if (copy) {
+    const status = document.querySelector('[data-copy-status]');
+    const code = document.getElementById(copy.dataset.copy);
+    copy.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code.textContent);
+        status.textContent = 'Copied to clipboard';
+      } catch (err) {
+        const r = document.createRange(); r.selectNodeContents(code);
+        const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        status.textContent = 'Selected. Press Ctrl+C or ⌘C to copy';
+      }
+      setTimeout(() => { status.textContent = ''; }, 4000);
+    });
+  }
+})();
+</script>
+</body>
+</html>

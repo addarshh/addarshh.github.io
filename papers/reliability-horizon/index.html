@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Reliability Horizon | Adarsh Agrawal</title>
+<meta name="description" content="A temporal stress test for forecast recalibration across prediction markets and nine language-model forecasters, showing that an apparent retrospective gain fails later-event and frozen prospective validation.">
+<meta name="author" content="Adarsh Agrawal">
+<link rel="canonical" href="https://addarshh.github.io/papers/reliability-horizon/">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Adarsh Agrawal">
+<meta property="og:title" content="The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration">
+<meta property="og:description" content="A temporal stress test for forecast recalibration across prediction markets and nine language-model forecasters, showing that an apparent retrospective gain fails later-event and frozen prospective validation.">
+<meta property="og:url" content="https://addarshh.github.io/papers/reliability-horizon/">
+<meta property="og:image" content="https://addarshh.github.io/papers/reliability-horizon/assets/social-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Title slide of the talk for The Reliability Horizon">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration">
+<meta name="twitter:description" content="A temporal stress test for forecast recalibration across prediction markets and nine language-model forecasters, showing that an apparent retrospective gain fails later-event and frozen prospective validation.">
+<meta name="twitter:image" content="https://addarshh.github.io/papers/reliability-horizon/assets/social-card.jpg">
+<meta name="citation_title" content="The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration">
+<meta name="citation_author" content="Agrawal, Adarsh">
+<meta name="citation_publication_date" content="2026">
+<meta name="citation_conference_title" content="NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling">
+<meta name="citation_pdf_url" content="https://openreview.net/pdf?id=emVhXV7PHf">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration",
+ "name": "The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration",
+ "author": [
+  {
+   "@type": "Person",
+   "name": "Adarsh Agrawal",
+   "url": "https://addarshh.github.io/"
+  }
+ ],
+ "datePublished": "2026",
+ "url": "https://addarshh.github.io/papers/reliability-horizon/",
+ "sameAs": [
+  "https://openreview.net/forum?id=emVhXV7PHf"
+ ],
+ "image": "https://addarshh.github.io/papers/reliability-horizon/assets/social-card.jpg",
+ "keywords": "probabilistic forecasting, forecast recalibration, temporal distribution shift, large language models, prediction markets, prospective evaluation",
+ "abstract": "Recalibration that helps retrospectively can fail once deployed. We introduce the reliability horizon, a deployment protocol that requires a calibration gain to survive three checks: a balanced audit across lead times, utility guardrails, and independent temporal validation. On 1,481 resolved Polymarket markets, including 633 observed at every horizon, calibration shows no detected degradation from one day to six months. Metaculus shows the same pattern. Kalshi degrades sharply with horizon, and the protocol returns recalibrate, with the gain persisting on later events. For nine language-model forecasters, small retrospective ensemble gains fail multiplicity correction and are not confirmed on 111 later events or 312 frozen prospective outcomes. The protocol blocks deployment. Smoother Platt and beta maps reduce log-score penalties but do not change this decision. Synthetic controls detect injected defects in 91.7% of runs at the prospective sample size, and power analysis quantifies the effects that remain unresolved. The protocol recalibrates persistent defects that pass temporal and utility checks and leaves forecasts alone when those checks do not establish a benefit.",
+ "isPartOf": {
+  "@type": "PublicationEvent",
+  "name": "NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling"
+ },
+ "encoding": {
+  "@type": "MediaObject",
+  "contentUrl": "https://openreview.net/pdf?id=emVhXV7PHf",
+  "encodingFormat": "application/pdf"
+ }
+}
+</script>
+<style>
+:root{--a1:#0F4D92;--a2:#B64342;--a3:#24774A;--a4:#8A6100;--a5:#56657F;}
+:root{
+  --ink:#18202E; --body:#2B3442; --muted:#5B6573; --faint:#8A93A0; --rule:#D9DEE5; --fog:#F3F5F8; --paper:#FFFFFF;
+  --signal:#0F4D92; --signal-deep:#0B3A6E;
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,"Iowan Old Style",Georgia,serif;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --measure:42rem; --wide:68rem; --gutter:clamp(1.25rem,4vw,2.5rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--body);font:400 1.125rem/1.65 var(--serif);font-kerning:normal;font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:var(--signal);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{color:var(--signal-deep);text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:1rem;top:1rem;z-index:20;background:var(--paper);padding:.5rem .8rem;font:600 .95rem/1 var(--sans)}
+
+/* site chrome: same markup and rules as assets/site.css */
+.site-header,.site-footer{color:#111;font:400 16px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif}
+.site-header{position:relative;min-height:57px;border-bottom:1px solid #e8e8e8}
+.nav-shell,.page-shell{width:100%;max-width:800px;margin-right:auto;margin-left:auto;padding-right:30px;padding-left:30px}
+.nav-shell{position:relative;min-height:56px}
+.nav-shell::after,.footer-inner::after{display:table;clear:both;content:""}
+.site-name{float:left;margin-bottom:0;color:#424242;font-size:26px;font-weight:300;line-height:56px;text-decoration:none}
+.site-name:visited,.site-name:hover,.site-name:focus-visible{color:#424242;text-decoration:none}
+.site-nav{float:right;line-height:56px}
+.site-nav a,.site-nav a:visited{color:#111;line-height:1.5;text-decoration:none}
+.site-nav a:hover,.site-nav a:focus-visible{color:#111;text-decoration:underline}
+.site-nav a:not(:last-child){margin-right:20px}
+.menu-button{display:none;border:0;background:transparent;color:#424242;cursor:pointer}
+.menu-button svg{width:18px;height:18px;stroke-width:1.8}
+
+main{padding:0 var(--gutter)}
+.col{max-width:var(--measure);margin-left:auto;margin-right:auto}
+.wide{max-width:var(--wide);margin-left:auto;margin-right:auto}
+.mid{max-width:56rem;margin-left:auto;margin-right:auto}
+
+/* hero */
+.hero{padding:clamp(2.5rem,7vw,4.75rem) 0 0}
+.venue{font:500 .95rem/1.45 var(--sans);color:var(--muted);margin:0 0 1.1rem}
+.venue a{color:inherit}
+h1{margin:0;color:var(--ink);font-family:var(--serif);font-weight:700;letter-spacing:-.012em}
+h1 .t-main{display:block;font-size:clamp(2.05rem,1.2rem + 3.3vw,3.35rem);line-height:1.08;text-wrap:balance}
+h1 .t-sub{display:block;margin-top:.55rem;font-size:clamp(1.2rem,.98rem + .95vw,1.65rem);line-height:1.28;font-weight:400;letter-spacing:0;color:var(--body);text-wrap:balance}
+.byline{margin:1.35rem 0 0;font:400 1.02rem/1.5 var(--sans);color:var(--muted)}
+.byline a{color:var(--ink);font-weight:600;text-decoration:none}
+.byline a:hover{text-decoration:underline}
+.links{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.6rem 0 0;padding:0;list-style:none}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.62rem .95rem;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);font:500 .95rem/1 var(--sans);text-decoration:none;cursor:pointer}
+.btn:visited{color:var(--ink)}
+.btn:hover{border-color:var(--ink);color:var(--ink);text-decoration:none}
+.btn.primary,.btn.primary:visited{background:var(--signal);border-color:var(--signal);color:#fff}
+.btn.primary:hover{background:var(--signal-deep);border-color:var(--signal-deep);color:#fff}
+.btn svg{width:1.05em;height:1.05em;flex:none}
+
+/* the claim: the page's one loud element */
+.claim{margin:2.4rem auto 0;color:var(--ink);font:400 clamp(1.24rem,1.04rem + .8vw,1.52rem)/1.5 var(--serif);text-wrap:pretty}
+.n{font-weight:700;white-space:nowrap}
+.nw{white-space:nowrap}
+.c1{color:var(--a1)}.c2{color:var(--a2)}.c3{color:var(--a3)}.c4{color:var(--a4)}.c5{color:var(--a5)}
+
+/* figures */
+figure{margin:2.6rem auto 0}
+.plate{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:clamp(.6rem,2vw,1.4rem)}
+figure img{display:block;width:100%;height:auto}
+figcaption{max-width:var(--measure);margin:.85rem auto 0;font:400 .9rem/1.55 var(--sans);color:var(--muted)}
+figcaption b{color:var(--ink);font-weight:600}
+
+/* sections */
+section{margin-top:clamp(3.2rem,7vw,4.75rem)}
+h2{margin:0 0 1rem;color:var(--ink);font:700 clamp(1.45rem,1.2rem + .9vw,1.85rem)/1.2 var(--serif);letter-spacing:-.005em}
+h3{margin:2.1rem 0 .55rem;color:var(--ink);font:600 1.12rem/1.35 var(--sans)}
+p{margin:0 0 1rem}
+.sc{font-variant-caps:all-small-caps;letter-spacing:.04em;font-variant-numeric:lining-nums}
+.eq{margin:1.25rem 0;padding:.9rem 1.1rem;background:var(--fog);border-radius:8px;font:400 1.08rem/1.9 var(--serif);color:var(--ink);overflow-x:auto}
+.eq i{font-style:italic}
+.note{font:400 .95rem/1.55 var(--sans);color:var(--muted)}
+
+/* findings: number hangs on the left, sentence on the right */
+.findings{list-style:none;margin:1.4rem auto 0;padding:0}
+.findings li{display:grid;grid-template-columns:13rem minmax(0,1fr);gap:1.5rem;padding:1.15rem 0;border-top:1px solid var(--rule)}
+.findings li:last-child{border-bottom:1px solid var(--rule)}
+.findings .k{color:var(--ink);font:650 1.42rem/1.25 var(--sans);letter-spacing:-.01em}
+.findings .v{margin:0;font-size:1.05rem;line-height:1.6}
+
+/* ordered procedures (real sequences only) */
+.steps{margin:1.2rem 0 1.4rem;padding:0;list-style:none;counter-reset:step}
+.steps li{position:relative;padding:.1rem 0 .9rem 2.6rem;counter-increment:step}
+.steps li::before{content:counter(step);position:absolute;left:0;top:.15rem;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--ink);color:#fff;font:600 .9rem/1.75rem var(--sans);text-align:center}
+.steps b{color:var(--ink)}
+
+/* term lists: limitations, study arms */
+.terms{margin:1.2rem 0 1.2rem}
+.terms dt{margin-top:1.1rem;color:var(--ink);font:600 1.02rem/1.4 var(--sans)}
+.terms dt:first-child{margin-top:0}
+.terms dd{margin:.25rem 0 0}
+
+/* tables */
+.tablewrap{overflow-x:auto;margin:1.4rem 0}
+table{border-collapse:collapse;width:100%;font:400 .95rem/1.45 var(--sans);font-variant-numeric:lining-nums tabular-nums}
+th,td{padding:.6rem .75rem .6rem 0;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+th{color:var(--muted);font-weight:600}
+td:first-child{color:var(--ink);font-weight:600}
+
+/* slide viewer */
+.deck{display:grid;grid-template-columns:minmax(0,1fr) 16.5rem;gap:1.75rem;align-items:start;margin-top:1.4rem}
+.deck-stage{position:relative;aspect-ratio:16/9;background:var(--fog);border:1px solid var(--rule);border-radius:10px;overflow:hidden;cursor:pointer}
+.deck-stage img{display:block;width:100%;height:100%;object-fit:contain}
+.deck-stage:fullscreen{background:#000;border:0;border-radius:0}
+.deck-bar{display:flex;align-items:center;gap:.5rem;margin-top:.8rem;font:500 .92rem/1 var(--sans);color:var(--muted)}
+.ibtn{display:inline-grid;place-items:center;width:2.4rem;height:2.4rem;padding:0;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}
+.ibtn:hover{border-color:var(--ink)}
+.ibtn:disabled{color:var(--faint);border-color:var(--rule);cursor:default}
+.ibtn svg{width:1.15rem;height:1.15rem}
+.deck-count{min-width:7.2rem;text-align:center;font-variant-numeric:tabular-nums}
+.deck-bar .grow{flex:1}
+.deck-bar .dl{display:inline-flex;align-items:center;gap:.45rem;color:var(--signal);text-decoration:none}
+.deck-bar .dl:hover{text-decoration:underline}
+.deck-bar .dl svg{width:1.05rem;height:1.05rem}
+.outline{list-style:none;margin:0;padding:0;font:400 .9rem/1.35 var(--sans)}
+.outline button{display:grid;grid-template-columns:1.7rem minmax(0,1fr);width:100%;padding:.42rem .55rem;border:0;border-radius:6px;background:none;color:var(--muted);font:inherit;text-align:left;cursor:pointer}
+.outline button:hover{color:var(--ink)}
+.outline button span:first-child{color:var(--faint);font-variant-numeric:tabular-nums}
+.outline button[aria-current="true"]{background:var(--fog);color:var(--ink);font-weight:600}
+.outline button[aria-current="true"] span:first-child{color:var(--ink)}
+
+/* citation */
+.bib{margin:1.2rem 0 0;padding:1.1rem 1.25rem;background:var(--fog);border-radius:10px;overflow-x:auto}
+.bib pre{margin:0;font:400 .84rem/1.65 var(--mono);color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+.copyrow{display:flex;align-items:center;gap:.9rem;margin-top:.8rem}
+.copyrow .status{font:400 .9rem/1 var(--sans);color:var(--muted)}
+
+/* related */
+.related{list-style:none;margin:1rem 0 0;padding:0}
+.related li{padding:.85rem 0;border-top:1px solid var(--rule)}
+.related li:last-child{border-bottom:1px solid var(--rule)}
+.related a{font-weight:600}
+.related .kind{display:block;margin-top:.15rem;font:400 .88rem/1.4 var(--sans);color:var(--muted)}
+
+/* footer: same markup and rules as assets/site.css */
+.site-footer{margin-top:clamp(4rem,9vw,6rem);padding:30px 0;border-top:1px solid #e8e8e8}
+.footer-inner{color:#828282;font-size:15px}
+.footer-inner>div:first-child,.footer-links{float:left;width:50%}
+.footer-inner strong,.footer-inner span{display:block}
+.footer-inner strong{color:#828282;font-weight:400}
+.footer-links a{display:block;color:#2a7ae2;text-decoration:none}
+.footer-links a:visited{color:#1756a9}
+.footer-links a:hover,.footer-links a:focus-visible{color:#113f7c;text-decoration:underline}
+
+@media screen and (max-width:800px){
+  .page-shell,.nav-shell{max-width:770px;padding-right:15px;padding-left:15px}
+}
+@media screen and (max-width:600px){
+  .site-nav{position:absolute;z-index:30;top:48px;right:15px;display:none;min-width:150px;padding:5px 0;border:1px solid #e8e8e8;border-radius:5px;background:#fff;line-height:1.5;text-align:right}
+  .site-nav.is-open{display:block}
+  .site-nav a{display:block;margin:0;padding:5px 10px}
+  .site-nav a:not(:last-child){margin-right:0}
+  .menu-button{position:absolute;z-index:31;top:9px;right:15px;display:grid;width:36px;height:38px;padding:0;place-items:center}
+  .footer-inner>div:first-child,.footer-links{float:none;width:100%}
+  .footer-links{margin-top:15px}
+}
+@media screen and (max-width:390px){
+  .site-name{font-size:23px}
+}
+
+@media (max-width:960px){
+  .deck{grid-template-columns:1fr}
+  .deck .outline-wrap{display:none}
+}
+@media (max-width:720px){
+  body{font-size:1.0625rem}
+  .findings li{grid-template-columns:1fr;gap:.3rem}
+  .findings .k{font-size:1.3rem}
+  .deck-bar .dl span{display:none}
+}
+@media print{
+  .site-header,.links,.deck,.copyrow,.site-footer{display:none}
+  body{font-size:11pt}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="site-name" href="/index.html">Adarsh Agrawal</a>
+    <button class="menu-button" type="button" data-menu-toggle data-icon-x="&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M18 6 6 18&quot;/&gt;&lt;path d=&quot;m6 6 12 12&quot;/&gt;&lt;/svg&gt;" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation" title="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/></svg></button>
+    <nav class="site-nav" id="site-nav" data-site-nav aria-label="Primary navigation">
+      <a href="/index.html">About</a>
+      <a href="/experience.html">CV</a>
+      <a href="/research.html">Research</a>
+      <a href="/recognition.html">Others</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article>
+  <header class="hero col">
+    <p class="venue">Poster at the <a href="https://neurips.cc/virtual/2026/workshop/137514">NeurIPS 2026 Workshop on Foundation Models for Temporal Systems</a></p>
+    <h1><span class="t-main">The Reliability Horizon</span><span class="t-sub">A Temporal Stress Test for Forecast Recalibration</span></h1>
+    <p class="byline"><a href="/index.html">Adarsh Agrawal</a></p>
+    <ul class="links" aria-label="Paper resources">
+      <li><a class="btn primary" href="https://openreview.net/pdf?id=emVhXV7PHf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
+      <li><a class="btn" href="https://openreview.net/forum?id=emVhXV7PHf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg>OpenReview</a></li>
+      <li><a class="btn" href="reliability-horizon-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</a></li>
+      <li><a class="btn" href="#cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>Cite</a></li>
+    </ul>
+  </header>
+
+  <p class="claim col">A recalibration map can look helpful in hindsight and still fail once deployed. For nine LLM forecasters, a small retrospective gain did not survive multiplicity correction, and the efficient ensemble’s map lowered log score by <span class="n c2"><span class="nw">0.093 nats</span></span> on later events. The same three-gate protocol still recalibrates Kalshi, whose gain persists on 67 later events (<span class="n c3">+0.0312</span>).</p>
+
+  <figure class="wide" id="figure-1">
+  <div class="plate"><img src="assets/fig1-protocol-blocks.webp" width="1650" height="661" alt="Two panels. A: retrospective reliability gains with 95% intervals for the efficient, balanced, and flagship ensembles, all small. B: reliability gain against log-score gain for the efficient ensemble: retrospective +0.0071 and −0.021 nats, frozen prospective +0.0031 and −0.041 nats, later events −0.0097 and −0.093 nats, below the −0.08-nat tolerance line." decoding="async"></div>
+  <figcaption><b>Figure 1.</b> The protocol blocks a correction that looks positive in hindsight. A: Pointwise 95% reliability CIs; no tier passes the familywise test. B: The efficient ensemble across evaluations. Reliability CIs are 95%; the retrospective log-score CI is 90%, and validation log-score CIs are 95%. The dashed line marks the utility tolerance. Frozen prospective efficient reliability is +0.0031 (CI [−0.0054, +0.0121]), returning <span class="sc">skip</span>.</figcaption>
+</figure>
+
+  <section class="col abstract" id="abstract" aria-labelledby="h-abstract">
+    <h2 id="h-abstract">Abstract</h2>
+    <p>Recalibration that helps retrospectively can fail once deployed. We introduce the reliability horizon, a deployment protocol that requires a calibration gain to survive three checks: a balanced audit across lead times, utility guardrails, and independent temporal validation. On 1,481 resolved Polymarket markets, including 633 observed at every horizon, calibration shows no detected degradation from one day to six months. Metaculus shows the same pattern. Kalshi degrades sharply with horizon, and the protocol returns <span class="sc">recalibrate</span>, with the gain persisting on later events. For nine language-model forecasters, small retrospective ensemble gains fail multiplicity correction and are not confirmed on 111 later events or 312 frozen prospective outcomes. The protocol blocks deployment. Smoother Platt and beta maps reduce log-score penalties but do not change this decision. Synthetic controls detect injected defects in 91.7% of runs at the prospective sample size, and power analysis quantifies the effects that remain unresolved. The protocol recalibrates persistent defects that pass temporal and utility checks and leaves forecasts alone when those checks do not establish a benefit.</p>
+  </section>
+
+  <section id="findings" aria-labelledby="h-findings">
+    <h2 class="col" id="h-findings">Key findings</h2>
+    <ul class="findings mid">
+      <li><div class="k"><span class="c3">+0.0312</span></div><p class="v">Kalshi’s reliability gain on 67 later events, after a retrospective gain of +0.0387 [+0.0198, +0.0591] on 183 markets. Utility checks pass, so the protocol returns <span class="sc">recalibrate</span>.</p></li>
+      <li><div class="k"><span class="c5">Holm <span class="nw">p = .1494</span></span></div><p class="v">Familywise screen result for every LLM tier. Two pointwise intervals exclude zero, but the smallest raw p, 0.0498, exceeds the first Holm threshold of <span class="nw">0.05/3 ≈ 0.0167,</span> so the screen returns <span class="sc">skip</span>.</p></li>
+      <li><div class="k"><span class="c2">−<span class="nw">0.093 nats</span></span></div><p class="v">Later-event log-score change for the efficient ensemble’s map (95% CI [−0.151, −0.036]). Trusting the retrospective interval would have shipped this loss.</p></li>
+      <li><div class="k"><span class="c5">+0.0031</span></div><p class="v">Efficient-ensemble reliability gain on 312 resolved frozen prospective outcomes (95% CI [−0.0054, +0.0121]). Every tier’s interval includes zero.</p></li>
+      <li><div class="k"><span class="c1">91.7%</span></div><p class="v">Share of 1,000 simulated runs in which the full protocol detects an injected defect at the prospective sample size. A small +0.007 effect is detected in only 23.4%, so <span class="sc">skip</span> here means unresolved, not zero.</p></li>
+    </ul>
+  </section>
+
+  <section class="wide" id="slides" aria-labelledby="h-slides">
+    <h2 class="col" id="h-slides">Talk slides</h2>
+    <div class="deck" data-deck data-count="13" data-base="assets/slides/slide-" data-titles="[&quot;The Reliability Horizon&quot;, &quot;A retrospective gain is not a deployment decision&quot;, &quot;Three gates before any correction ships&quot;, &quot;Fixed events, dated inputs, frozen predictions&quot;, &quot;Horizon effects are venue-specific&quot;, &quot;A persistent defect passes every gate&quot;, &quot;Pointwise gains do not survive multiplicity&quot;, &quot;The retrospective gain does not hold up&quot;, &quot;Later and frozen evaluations do not confirm it&quot;, &quot;The gate still detects real defects&quot;, &quot;Selective, not negative&quot;, &quot;What the evidence does and does not show&quot;, &quot;Recalibrate only what survives time&quot;]" role="region" aria-roledescription="carousel" aria-label="Talk slides">
+      <div>
+        <div class="deck-stage" tabindex="0" aria-label="Current slide. Use the arrow keys to move between slides.">
+          <img src="assets/slides/slide-01.webp" width="1600" height="900" alt="Slide 1 of 13: The Reliability Horizon" decoding="async">
+        </div>
+        <div class="deck-bar">
+          <button type="button" class="ibtn" data-prev aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="deck-count" aria-live="polite">Slide 1 of 13</span>
+          <button type="button" class="ibtn" data-next aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button>
+          <span class="grow"></span>
+          <a class="dl" href="reliability-horizon-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span>Download PDF</span></a>
+          <button type="button" class="ibtn" data-fullscreen aria-label="Show slides full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+        </div>
+        <noscript><p class="note">The slide viewer needs JavaScript. <a href="reliability-horizon-slides.pdf">Download the slides as a PDF</a>.</p></noscript>
+      </div>
+      <nav class="outline-wrap" aria-label="Slide list">
+        <ol class="outline">
+          <li><button type="button" aria-current="true"><span>1</span><span>The Reliability Horizon</span></button></li>
+          <li><button type="button" aria-current="false"><span>2</span><span>A retrospective gain is not a deployment decision</span></button></li>
+          <li><button type="button" aria-current="false"><span>3</span><span>Three gates before any correction ships</span></button></li>
+          <li><button type="button" aria-current="false"><span>4</span><span>Fixed events, dated inputs, frozen predictions</span></button></li>
+          <li><button type="button" aria-current="false"><span>5</span><span>Horizon effects are venue-specific</span></button></li>
+          <li><button type="button" aria-current="false"><span>6</span><span>A persistent defect passes every gate</span></button></li>
+          <li><button type="button" aria-current="false"><span>7</span><span>Pointwise gains do not survive multiplicity</span></button></li>
+          <li><button type="button" aria-current="false"><span>8</span><span>The retrospective gain does not hold up</span></button></li>
+          <li><button type="button" aria-current="false"><span>9</span><span>Later and frozen evaluations do not confirm it</span></button></li>
+          <li><button type="button" aria-current="false"><span>10</span><span>The gate still detects real defects</span></button></li>
+          <li><button type="button" aria-current="false"><span>11</span><span>Selective, not negative</span></button></li>
+          <li><button type="button" aria-current="false"><span>12</span><span>What the evidence does and does not show</span></button></li>
+          <li><button type="button" aria-current="false"><span>13</span><span>Recalibrate only what survives time</span></button></li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="protocol" aria-labelledby="h-protocol">
+    <div class="col">
+      <h2 id="h-protocol">The protocol</h2>
+      <p>The reliability horizon treats recalibration as a deployment decision. A fitted map must clear three gates in order, and each gate can stop it:</p>
+      <ol class="steps">
+        <li><b>Screen.</b> A Holm-controlled reliability gain across the three model tiers; a single control needs a positive 95% CI. Unresolved reliability at any stage returns <span class="sc">skip</span>.</li>
+        <li><b>Utility.</b> 90% lower bounds above −<span class="nw">0.08 nats</span> for log score and −0.02 for decision loss. An established gain that fails utility returns <span class="sc">reject</span>; one that passes becomes a <span class="sc">candidate</span>, which is not approval.</li>
+        <li><b>Temporal.</b> Gain and utility re-established on later events, with a frozen prospective check for model forecasts. Passing returns <span class="sc">recalibrate</span>.</li>
+      </ol>
+      <p>Reliability gain (Δrel) is the drop in binned reliability error after applying the map, and Δlog is its log-score gain in nats. The 0.08-nat margin equals log(0.65/0.60).</p>
+    </div>
+  </section>
+
+  <section id="crowds" aria-labelledby="h-crowds">
+    <div class="col">
+      <h2 id="h-crowds">Crowd calibration is venue-specific</h2>
+      <p>The crowd audit fixes event identity, so every horizon compares the same markets. On 633 Polymarket markets observed at all five horizons, from one day to six months, neither Friedman nor Page tests detect a horizon effect, and recalibration stays within ±0.02 ECE of a no-op at every horizon. Equivalence holds at ±0.04 <span class="nw">(p = 0.021)</span> but not at ±0.02 <span class="nw">(p = 0.107),</span> so the paper reports no detected trend rather than equivalence at the tighter margin.</p>
+      <div class="tablewrap">
+        <table>
+          <caption class="note" style="text-align:left;caption-side:bottom;padding-top:.6rem">Columns from Table 5 of the paper; trend p is Page’s test, and the contrast is in ECE. The decision column gives the protocol’s outcome for each venue.</caption>
+          <thead><tr><th scope="col">Venue</th><th scope="col">Markets</th><th scope="col">ECE range</th><th scope="col">Trend p</th><th scope="col">Max contrast [95% CI]</th><th scope="col">Decision</th></tr></thead>
+          <tbody>
+            <tr><td>Polymarket</td><td>633</td><td>.014–.030</td><td>.412</td><td>+.016 [−.004, +.036]</td><td>Left alone</td></tr>
+            <tr><td>Metaculus</td><td>389</td><td>.019–.031</td><td>.351</td><td>+.012 [−.007, +.032]</td><td>Left alone</td></tr>
+            <tr><td>Kalshi</td><td>183</td><td>.034–.148</td><td>&lt; .001</td><td>+.114 [+.062, +.173]</td><td><span class="sc">recalibrate</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="controls" aria-labelledby="h-controls">
+    <div class="col">
+      <h2 id="h-controls">The gate still says yes to real defects</h2>
+      <p>A protocol that never recalibrates would be useless. Kalshi shows this one can: its reliability gain is +0.0387 retrospectively and +0.0312 on 67 later events, both intervals excluding zero, and its later-event log-score change (+0.021, 95% CI [−0.031, +0.074]) passes the utility gate.</p>
+      <p>In simulation, a known logistic distortion is detected in 94.2% of runs with 300 validation events and 91.7% with 312. The 80%-power thresholds, about 0.015 in reliability at 111 later events and 0.010 at 312 prospective outcomes, sit above the +0.007 model signal, so the model result is unresolved rather than zero. The 0.093-nat later loss, by contrast, exceeds the 0.052-nat detection threshold and its 95% CI excludes zero, so score deterioration is established, though not beyond the 0.08-nat tolerance. Smoother Platt and beta maps reduce the log-score penalty but lose the reliability gain, so they do not change the decision.</p>
+    </div>
+    <figure class="mid" id="figure-2">
+  <div class="plate"><img src="assets/fig2-positive-controls.webp" width="1650" height="600" alt="Two panels. A: Kalshi reliability gain of about 0.039 retrospectively (n = 183) and 0.031 on later events (n = 67), both intervals above zero. B: protocol detection rates of 94.2% and 91.7% for a large defect at n = 300 and n = 312, and 23.4% for a small effect at n = 312." decoding="async" loading="lazy"></div>
+  <figcaption><b>Figure 2.</b> Positive controls distinguish persistent defects from small unresolved effects. A: Kalshi reliability gains with 95% CIs remain positive on later events. B: Full-protocol detection rates for the synthetic logistic distortion and a smaller +0.007 effect; n is the simulated validation size.</figcaption>
+</figure>
+  </section>
+
+  <section id="limitations" aria-labelledby="h-limitations">
+    <div class="col">
+      <h2 id="h-limitations">Scope and limitations</h2>
+      <dl class="terms">
+        <dt>Panel selection</dt><dd>The balanced panel is 42.7% of markets and favors longer-lived, more liquid markets (median volume $487k versus $218k), though excluded markets show similar near-term ECE.</dd>
+        <dt>Sparse long horizons</dt><dd>Only 8 of 21 six-month prospective outcomes have resolved, so most long-horizon prospective evidence is three-month evidence.</dd>
+        <dt>Knowledge in weights</dt><dd>As-of-date retrieval excludes future documents but not what the models learned in training; frozen predictions remove post-resolution querying.</dd>
+        <dt>Operational tolerances</dt><dd>Margins are application-specific, and small reliability effects remain below these panels’ detection thresholds.</dd>
+      </dl>
+      <p>The decision itself is stable. Log-score tolerances from 0.04 to <span class="nw">0.16 nats</span>, maturity and cohort splits of the prospective set, and bounds that assign all 74 pending outcomes either way all leave the model maps at <span class="sc">skip</span>.</p>
+    </div>
+    
+  </section>
+
+  <section class="col" id="reproducibility" aria-labelledby="h-repro">
+    <h2 id="h-repro">Reproducibility</h2>
+    <p>The reproducibility package contains a pinned Python environment, deterministic analysis scripts, per-row temporal-validity decisions, prospective registration and freeze timestamps, cached snapshots for all three venues, inference settings and prompts, and machine-readable table and figure values. All analyses regenerate without new model API calls, and the package has been checked in a clean environment.</p>
+    <p class="note">This page follows the NeurIPS 2026 workshop version of the paper on OpenReview. The site also hosts a <a href="reliability-horizon.pdf">preprint version (PDF)</a>.</p>
+  </section>
+
+  <section class="col" id="cite" aria-labelledby="h-cite">
+    <h2 id="h-cite">Cite this paper</h2>
+    <div class="bib"><pre><code id="bibtex">@inproceedings{agrawal2026reliabilityhorizon,
+  title={The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration},
+  author={Agrawal, Adarsh},
+  booktitle={NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling},
+  year={2026},
+  url={https://openreview.net/forum?id=emVhXV7PHf}
+}</code></pre></div>
+    <div class="copyrow">
+      <button type="button" class="btn" data-copy="bibtex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Copy BibTeX</button>
+      <span class="status" data-copy-status aria-live="polite"></span>
+    </div>
+  </section>
+
+  <section class="col" id="related" aria-labelledby="h-related">
+    <h2 id="h-related">Related papers</h2>
+    <ul class="related">
+      <li><a href="/papers/martingale-audit/">Do LLM Forecasts Change Their Minds Coherently?</a><span class="kind">Project page, also at this workshop</span></li>
+      <li><a href="/papers/belief-lifecycle/belief-lifecycle-preprint.pdf">When Does Temporal Validity Help Agent Memory? A Practical Evaluation Across Memory Regimes</a><span class="kind">Paper (PDF)</span></li>
+      <li><a href="/papers/clamp-order-propagate/clamp-order-propagate.pdf">Procedure, Not Causal Vocabulary: A Matched-Access Test of Interventional Reasoning in Foundation Models</a><span class="kind">Paper (PDF)</span></li>
+    </ul>
+    <p class="note" style="margin-top:1rem"><a href="/research.html">All publications and technical reports</a></p>
+  </section>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="page-shell footer-inner">
+    <div><strong>Adarsh Agrawal</strong><span>Senior Applied Scientist at Amazon</span></div>
+    <div class="footer-links">
+      <a href="mailto:adarsh.bjb@gmail.com">Email</a>
+      <a href="https://scholar.google.com/citations?user=fbqZ9wcAAAAJ&amp;hl=en" target="_blank" rel="noreferrer">Scholar</a>
+      <a href="https://github.com/addarshh" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://linkedin.com/in/adarshagrawal01" target="_blank" rel="noreferrer">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const deck = document.querySelector('[data-deck]');
+  if (deck) {
+    const n = +deck.dataset.count, base = deck.dataset.base, titles = JSON.parse(deck.dataset.titles);
+    const stage = deck.querySelector('.deck-stage'), img = stage.querySelector('img');
+    const count = deck.querySelector('.deck-count');
+    const prev = deck.querySelector('[data-prev]'), next = deck.querySelector('[data-next]');
+    const items = [...deck.querySelectorAll('.outline button')];
+    const src = (k) => base + String(k).padStart(2, '0') + '.webp';
+    let i = 1;
+    const show = (k) => {
+      i = Math.min(n, Math.max(1, k));
+      img.src = src(i);
+      img.alt = 'Slide ' + i + ' of ' + n + ': ' + titles[i - 1];
+      count.textContent = 'Slide ' + i + ' of ' + n;
+      prev.disabled = i === 1;
+      next.disabled = i === n;
+      items.forEach((b, j) => b.setAttribute('aria-current', j + 1 === i ? 'true' : 'false'));
+      if (i < n) { const pre = new Image(); pre.src = src(i + 1); }
+    };
+    prev.addEventListener('click', () => show(i - 1));
+    next.addEventListener('click', () => show(i + 1));
+    items.forEach((b, j) => b.addEventListener('click', () => show(j + 1)));
+    stage.addEventListener('click', (e) => {
+      const r = stage.getBoundingClientRect();
+      show(i + (e.clientX - r.left > r.width / 2 ? 1 : -1));
+    });
+    deck.addEventListener('keydown', (e) => {
+      const keys = { ArrowRight: i + 1, PageDown: i + 1, ArrowLeft: i - 1, PageUp: i - 1, Home: 1, End: n };
+      if (e.key in keys && !e.target.closest('.outline')) { show(keys[e.key]); e.preventDefault(); }
+    });
+    let x0 = null;
+    stage.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+      x0 = null;
+    });
+    const fs = deck.querySelector('[data-fullscreen]');
+    if (!stage.requestFullscreen) fs.hidden = true;
+    else fs.addEventListener('click', () => (document.fullscreenElement ? document.exitFullscreen() : stage.requestFullscreen()));
+    const m = location.hash.match(/^#slide-(\d+)$/);
+    show(m ? +m[1] : 1);
+    if (m) deck.scrollIntoView();
+  }
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const nav = document.querySelector('[data-site-nav]');
+  if (toggle && nav) {
+    const icons = { open: toggle.dataset.iconX, closed: toggle.innerHTML };
+    const setMenu = (open) => {
+      nav.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      toggle.setAttribute('title', open ? 'Close navigation' : 'Open navigation');
+      toggle.innerHTML = open ? icons.open : icons.closed;
+    };
+    toggle.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
+    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('resize', () => { if (window.innerWidth > 860) setMenu(false); });
+  }
+  const copy = document.querySelector('[data-copy]');
+  if (copy) {
+    const status = document.querySelector('[data-copy-status]');
+    const code = document.getElementById(copy.dataset.copy);
+    copy.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code.textContent);
+        status.textContent = 'Copied to clipboard';
+      } catch (err) {
+        const r = document.createRange(); r.selectNodeContents(code);
+        const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        status.textContent = 'Selected. Press Ctrl+C or ⌘C to copy';
+      }
+      setTimeout(() => { status.textContent = ''; }, 4000);
+    });
+  }
+})();
+</script>
+</body>
+</html>

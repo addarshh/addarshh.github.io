@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three Agents Are Not Three Verifiers | Adarsh Agrawal</title>
+<meta name="description" content="An empirical study of common-mode failure in LLM verification, showing why model agreement can overstate independent evidence and when routing disagreement to executable checks is more reliable.">
+<meta name="author" content="Adarsh Agrawal">
+<link rel="canonical" href="https://addarshh.github.io/papers/diverse-verification/">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Adarsh Agrawal">
+<meta property="og:title" content="Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification">
+<meta property="og:description" content="An empirical study of common-mode failure in LLM verification, showing why model agreement can overstate independent evidence and when routing disagreement to executable checks is more reliable.">
+<meta property="og:url" content="https://addarshh.github.io/papers/diverse-verification/">
+<meta property="og:image" content="https://addarshh.github.io/papers/diverse-verification/assets/social-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Title slide of the talk for Three Agents Are Not Three Verifiers">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification">
+<meta name="twitter:description" content="An empirical study of common-mode failure in LLM verification, showing why model agreement can overstate independent evidence and when routing disagreement to executable checks is more reliable.">
+<meta name="twitter:image" content="https://addarshh.github.io/papers/diverse-verification/assets/social-card.jpg">
+<meta name="citation_title" content="Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification">
+<meta name="citation_author" content="Agrawal, Adarsh">
+<meta name="citation_publication_date" content="2026">
+<meta name="citation_conference_title" content="NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics">
+<meta name="citation_pdf_url" content="https://openreview.net/pdf?id=Klbp3xuEkw">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification",
+ "name": "Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification",
+ "author": [
+  {
+   "@type": "Person",
+   "name": "Adarsh Agrawal",
+   "url": "https://addarshh.github.io/"
+  }
+ ],
+ "datePublished": "2026",
+ "url": "https://addarshh.github.io/papers/diverse-verification/",
+ "sameAs": [
+  "https://openreview.net/forum?id=Klbp3xuEkw"
+ ],
+ "image": "https://addarshh.github.io/papers/diverse-verification/assets/social-card.jpg",
+ "keywords": "LLM verification, common-mode failure, verifier ensembles, software testing, formal verification, repository evaluation, verifier routing",
+ "abstract": "Agreement among LLM verifiers is not independent evidence of correctness. We measure common-mode failure using 1,152 judgments from six models on executable code and proof artifacts, alongside 141 candidates from 47 Python repositories. Across controlled and repository studies, joint failure is 3.3–9.7 times the rate expected under independence. Statistical tests and robustness analyses establish a consistent pattern: model diversity reduces shared errors, but additional votes do not eliminate them. Changing the checking mechanism produces a stronger operating point. On repository candidates with resolved initial labels, routing Qwen3-Coder and Claude Sonnet 5 disagreements to pytest instead of a third model raises correct acceptance by 33.8 percentage points and lowers wrong acceptance by 5.1 points at lower normalized cost. This advantage persists with pytest-independent labels and external adjudication. Targeted mutation search further exposes the weakness of repeated voting: across three generators, repeated-model verification raises accepted-but-wrong rates by 17–27 percentage points above the nonadaptive baseline, while calibrated cross-model voting remains within three points. These findings establish shared-error measurement and mechanism-diverse checking as central design requirements for reliable LLM verification. Verification strength depends on the independence of the checks, not simply on how many models agree.",
+ "isPartOf": {
+  "@type": "PublicationEvent",
+  "name": "NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics"
+ },
+ "encoding": {
+  "@type": "MediaObject",
+  "contentUrl": "https://openreview.net/pdf?id=Klbp3xuEkw",
+  "encodingFormat": "application/pdf"
+ }
+}
+</script>
+<style>
+:root{--a1:#0F4D92;--a2:#B64342;--a3:#2F7780;--a4:#277556;}
+:root{
+  --ink:#18202E; --body:#2B3442; --muted:#5B6573; --faint:#8A93A0; --rule:#D9DEE5; --fog:#F3F5F8; --paper:#FFFFFF;
+  --signal:#0F4D92; --signal-deep:#0B3A6E;
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,"Iowan Old Style",Georgia,serif;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --measure:42rem; --wide:68rem; --gutter:clamp(1.25rem,4vw,2.5rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--body);font:400 1.125rem/1.65 var(--serif);font-kerning:normal;font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:var(--signal);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{color:var(--signal-deep);text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:1rem;top:1rem;z-index:20;background:var(--paper);padding:.5rem .8rem;font:600 .95rem/1 var(--sans)}
+
+/* site chrome: same markup and rules as assets/site.css */
+.site-header,.site-footer{color:#111;font:400 16px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif}
+.site-header{position:relative;min-height:57px;border-bottom:1px solid #e8e8e8}
+.nav-shell,.page-shell{width:100%;max-width:800px;margin-right:auto;margin-left:auto;padding-right:30px;padding-left:30px}
+.nav-shell{position:relative;min-height:56px}
+.nav-shell::after,.footer-inner::after{display:table;clear:both;content:""}
+.site-name{float:left;margin-bottom:0;color:#424242;font-size:26px;font-weight:300;line-height:56px;text-decoration:none}
+.site-name:visited,.site-name:hover,.site-name:focus-visible{color:#424242;text-decoration:none}
+.site-nav{float:right;line-height:56px}
+.site-nav a,.site-nav a:visited{color:#111;line-height:1.5;text-decoration:none}
+.site-nav a:hover,.site-nav a:focus-visible{color:#111;text-decoration:underline}
+.site-nav a:not(:last-child){margin-right:20px}
+.menu-button{display:none;border:0;background:transparent;color:#424242;cursor:pointer}
+.menu-button svg{width:18px;height:18px;stroke-width:1.8}
+
+main{padding:0 var(--gutter)}
+.col{max-width:var(--measure);margin-left:auto;margin-right:auto}
+.wide{max-width:var(--wide);margin-left:auto;margin-right:auto}
+.mid{max-width:56rem;margin-left:auto;margin-right:auto}
+
+/* hero */
+.hero{padding:clamp(2.5rem,7vw,4.75rem) 0 0}
+.venue{font:500 .95rem/1.45 var(--sans);color:var(--muted);margin:0 0 1.1rem}
+.venue a{color:inherit}
+h1{margin:0;color:var(--ink);font-family:var(--serif);font-weight:700;letter-spacing:-.012em}
+h1 .t-main{display:block;font-size:clamp(2.05rem,1.2rem + 3.3vw,3.35rem);line-height:1.08;text-wrap:balance}
+h1 .t-sub{display:block;margin-top:.55rem;font-size:clamp(1.2rem,.98rem + .95vw,1.65rem);line-height:1.28;font-weight:400;letter-spacing:0;color:var(--body);text-wrap:balance}
+.byline{margin:1.35rem 0 0;font:400 1.02rem/1.5 var(--sans);color:var(--muted)}
+.byline a{color:var(--ink);font-weight:600;text-decoration:none}
+.byline a:hover{text-decoration:underline}
+.links{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.6rem 0 0;padding:0;list-style:none}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.62rem .95rem;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);font:500 .95rem/1 var(--sans);text-decoration:none;cursor:pointer}
+.btn:visited{color:var(--ink)}
+.btn:hover{border-color:var(--ink);color:var(--ink);text-decoration:none}
+.btn.primary,.btn.primary:visited{background:var(--signal);border-color:var(--signal);color:#fff}
+.btn.primary:hover{background:var(--signal-deep);border-color:var(--signal-deep);color:#fff}
+.btn svg{width:1.05em;height:1.05em;flex:none}
+
+/* the claim: the page's one loud element */
+.claim{margin:2.4rem auto 0;color:var(--ink);font:400 clamp(1.24rem,1.04rem + .8vw,1.52rem)/1.5 var(--serif);text-wrap:pretty}
+.n{font-weight:700;white-space:nowrap}
+.nw{white-space:nowrap}
+.c1{color:var(--a1)}.c2{color:var(--a2)}.c3{color:var(--a3)}.c4{color:var(--a4)}.c5{color:var(--a5)}
+
+/* figures */
+figure{margin:2.6rem auto 0}
+.plate{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:clamp(.6rem,2vw,1.4rem)}
+figure img{display:block;width:100%;height:auto}
+figcaption{max-width:var(--measure);margin:.85rem auto 0;font:400 .9rem/1.55 var(--sans);color:var(--muted)}
+figcaption b{color:var(--ink);font-weight:600}
+
+/* sections */
+section{margin-top:clamp(3.2rem,7vw,4.75rem)}
+h2{margin:0 0 1rem;color:var(--ink);font:700 clamp(1.45rem,1.2rem + .9vw,1.85rem)/1.2 var(--serif);letter-spacing:-.005em}
+h3{margin:2.1rem 0 .55rem;color:var(--ink);font:600 1.12rem/1.35 var(--sans)}
+p{margin:0 0 1rem}
+.sc{font-variant-caps:all-small-caps;letter-spacing:.04em;font-variant-numeric:lining-nums}
+.eq{margin:1.25rem 0;padding:.9rem 1.1rem;background:var(--fog);border-radius:8px;font:400 1.08rem/1.9 var(--serif);color:var(--ink);overflow-x:auto}
+.eq i{font-style:italic}
+.note{font:400 .95rem/1.55 var(--sans);color:var(--muted)}
+
+/* findings: number hangs on the left, sentence on the right */
+.findings{list-style:none;margin:1.4rem auto 0;padding:0}
+.findings li{display:grid;grid-template-columns:13rem minmax(0,1fr);gap:1.5rem;padding:1.15rem 0;border-top:1px solid var(--rule)}
+.findings li:last-child{border-bottom:1px solid var(--rule)}
+.findings .k{color:var(--ink);font:650 1.42rem/1.25 var(--sans);letter-spacing:-.01em}
+.findings .v{margin:0;font-size:1.05rem;line-height:1.6}
+
+/* ordered procedures (real sequences only) */
+.steps{margin:1.2rem 0 1.4rem;padding:0;list-style:none;counter-reset:step}
+.steps li{position:relative;padding:.1rem 0 .9rem 2.6rem;counter-increment:step}
+.steps li::before{content:counter(step);position:absolute;left:0;top:.15rem;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--ink);color:#fff;font:600 .9rem/1.75rem var(--sans);text-align:center}
+.steps b{color:var(--ink)}
+
+/* term lists: limitations, study arms */
+.terms{margin:1.2rem 0 1.2rem}
+.terms dt{margin-top:1.1rem;color:var(--ink);font:600 1.02rem/1.4 var(--sans)}
+.terms dt:first-child{margin-top:0}
+.terms dd{margin:.25rem 0 0}
+
+/* tables */
+.tablewrap{overflow-x:auto;margin:1.4rem 0}
+table{border-collapse:collapse;width:100%;font:400 .95rem/1.45 var(--sans);font-variant-numeric:lining-nums tabular-nums}
+th,td{padding:.6rem .75rem .6rem 0;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+th{color:var(--muted);font-weight:600}
+td:first-child{color:var(--ink);font-weight:600}
+
+/* slide viewer */
+.deck{display:grid;grid-template-columns:minmax(0,1fr) 16.5rem;gap:1.75rem;align-items:start;margin-top:1.4rem}
+.deck-stage{position:relative;aspect-ratio:16/9;background:var(--fog);border:1px solid var(--rule);border-radius:10px;overflow:hidden;cursor:pointer}
+.deck-stage img{display:block;width:100%;height:100%;object-fit:contain}
+.deck-stage:fullscreen{background:#000;border:0;border-radius:0}
+.deck-bar{display:flex;align-items:center;gap:.5rem;margin-top:.8rem;font:500 .92rem/1 var(--sans);color:var(--muted)}
+.ibtn{display:inline-grid;place-items:center;width:2.4rem;height:2.4rem;padding:0;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}
+.ibtn:hover{border-color:var(--ink)}
+.ibtn:disabled{color:var(--faint);border-color:var(--rule);cursor:default}
+.ibtn svg{width:1.15rem;height:1.15rem}
+.deck-count{min-width:7.2rem;text-align:center;font-variant-numeric:tabular-nums}
+.deck-bar .grow{flex:1}
+.deck-bar .dl{display:inline-flex;align-items:center;gap:.45rem;color:var(--signal);text-decoration:none}
+.deck-bar .dl:hover{text-decoration:underline}
+.deck-bar .dl svg{width:1.05rem;height:1.05rem}
+.outline{list-style:none;margin:0;padding:0;font:400 .9rem/1.35 var(--sans)}
+.outline button{display:grid;grid-template-columns:1.7rem minmax(0,1fr);width:100%;padding:.42rem .55rem;border:0;border-radius:6px;background:none;color:var(--muted);font:inherit;text-align:left;cursor:pointer}
+.outline button:hover{color:var(--ink)}
+.outline button span:first-child{color:var(--faint);font-variant-numeric:tabular-nums}
+.outline button[aria-current="true"]{background:var(--fog);color:var(--ink);font-weight:600}
+.outline button[aria-current="true"] span:first-child{color:var(--ink)}
+
+/* citation */
+.bib{margin:1.2rem 0 0;padding:1.1rem 1.25rem;background:var(--fog);border-radius:10px;overflow-x:auto}
+.bib pre{margin:0;font:400 .84rem/1.65 var(--mono);color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+.copyrow{display:flex;align-items:center;gap:.9rem;margin-top:.8rem}
+.copyrow .status{font:400 .9rem/1 var(--sans);color:var(--muted)}
+
+/* related */
+.related{list-style:none;margin:1rem 0 0;padding:0}
+.related li{padding:.85rem 0;border-top:1px solid var(--rule)}
+.related li:last-child{border-bottom:1px solid var(--rule)}
+.related a{font-weight:600}
+.related .kind{display:block;margin-top:.15rem;font:400 .88rem/1.4 var(--sans);color:var(--muted)}
+
+/* footer: same markup and rules as assets/site.css */
+.site-footer{margin-top:clamp(4rem,9vw,6rem);padding:30px 0;border-top:1px solid #e8e8e8}
+.footer-inner{color:#828282;font-size:15px}
+.footer-inner>div:first-child,.footer-links{float:left;width:50%}
+.footer-inner strong,.footer-inner span{display:block}
+.footer-inner strong{color:#828282;font-weight:400}
+.footer-links a{display:block;color:#2a7ae2;text-decoration:none}
+.footer-links a:visited{color:#1756a9}
+.footer-links a:hover,.footer-links a:focus-visible{color:#113f7c;text-decoration:underline}
+
+@media screen and (max-width:800px){
+  .page-shell,.nav-shell{max-width:770px;padding-right:15px;padding-left:15px}
+}
+@media screen and (max-width:600px){
+  .site-nav{position:absolute;z-index:30;top:48px;right:15px;display:none;min-width:150px;padding:5px 0;border:1px solid #e8e8e8;border-radius:5px;background:#fff;line-height:1.5;text-align:right}
+  .site-nav.is-open{display:block}
+  .site-nav a{display:block;margin:0;padding:5px 10px}
+  .site-nav a:not(:last-child){margin-right:0}
+  .menu-button{position:absolute;z-index:31;top:9px;right:15px;display:grid;width:36px;height:38px;padding:0;place-items:center}
+  .footer-inner>div:first-child,.footer-links{float:none;width:100%}
+  .footer-links{margin-top:15px}
+}
+@media screen and (max-width:390px){
+  .site-name{font-size:23px}
+}
+
+@media (max-width:960px){
+  .deck{grid-template-columns:1fr}
+  .deck .outline-wrap{display:none}
+}
+@media (max-width:720px){
+  body{font-size:1.0625rem}
+  .findings li{grid-template-columns:1fr;gap:.3rem}
+  .findings .k{font-size:1.3rem}
+  .deck-bar .dl span{display:none}
+}
+@media print{
+  .site-header,.links,.deck,.copyrow,.site-footer{display:none}
+  body{font-size:11pt}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="site-name" href="/index.html">Adarsh Agrawal</a>
+    <button class="menu-button" type="button" data-menu-toggle data-icon-x="&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M18 6 6 18&quot;/&gt;&lt;path d=&quot;m6 6 12 12&quot;/&gt;&lt;/svg&gt;" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation" title="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/></svg></button>
+    <nav class="site-nav" id="site-nav" data-site-nav aria-label="Primary navigation">
+      <a href="/index.html">About</a>
+      <a href="/experience.html">CV</a>
+      <a href="/research.html">Research</a>
+      <a href="/recognition.html">Others</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article>
+  <header class="hero col">
+    <p class="venue">Poster at the NeurIPS 2026 Workshop on AI for Verifiable Coding</p>
+    <h1><span class="t-main">Three Agents Are Not Three Verifiers</span><span class="t-sub">Measuring Common-Mode Failure in LLM Verification</span></h1>
+    <p class="byline"><a href="/index.html">Adarsh Agrawal</a></p>
+    <ul class="links" aria-label="Paper resources">
+      <li><a class="btn primary" href="https://openreview.net/pdf?id=Klbp3xuEkw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
+      <li><a class="btn" href="https://openreview.net/forum?id=Klbp3xuEkw"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg>OpenReview</a></li>
+      <li><a class="btn" href="diverse-verification-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</a></li>
+      <li><a class="btn" href="source.zip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/></svg>Source (ZIP)</a></li>
+      <li><a class="btn" href="#cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>Cite</a></li>
+    </ul>
+  </header>
+
+  <p class="claim col">Three LLM verifiers that agree are not three independent checks. On 47 held-out candidates, a cross-model trio was wrong all at once on <span class="n c1">8</span> (17.0%), against the 3.0% that independent errors would predict. Routing disagreements to pytest instead of another model raised correct acceptance by <span class="n c4"><span class="nw">33.8 points</span></span> and cut wrong acceptance by 5.1, at lower cost.</p>
+
+  <figure class="wide" id="figure-1">
+  <div class="plate"><img src="assets/fig1-joint-failure.webp" width="1650" height="783" alt="Dot plot comparing observed all-member failure with the rate expected under independence. Controlled same model 25.5% (9.7 times), controlled cross model 17.0% (5.7 times), repository same model 31.5% (6.6 times), repository cross model 19.2% (3.3 times), repository six models 8.5% (5.0 times)." decoding="async"></div>
+  <figcaption><b>Figure 1.</b> Observed all-member failure and the product of member error rates. Labels show observed failure and its ratio to the independence estimate. The controlled cross-model ratio is 5.7×, with an approximate 95% delta-method interval of [2.4, 13.8]×; it exceeds 99.8% of the 10,000 within-cluster permuted ratios <span class="nw">(p = 0.002).</span></figcaption>
+</figure>
+
+  <section class="col abstract" id="abstract" aria-labelledby="h-abstract">
+    <h2 id="h-abstract">Abstract</h2>
+    <p>Agreement among LLM verifiers is not independent evidence of correctness. We measure common-mode failure using 1,152 judgments from six models on executable code and proof artifacts, alongside 141 candidates from 47 Python repositories. Across controlled and repository studies, joint failure is 3.3–9.7 times the rate expected under independence. Statistical tests and robustness analyses establish a consistent pattern: model diversity reduces shared errors, but additional votes do not eliminate them. Changing the checking mechanism produces a stronger operating point. On repository candidates with resolved initial labels, routing Qwen3-Coder and Claude Sonnet 5 disagreements to pytest instead of a third model raises correct acceptance by 33.8 percentage points and lowers wrong acceptance by <span class="nw">5.1 points</span> at lower normalized cost. This advantage persists with pytest-independent labels and external adjudication. Targeted mutation search further exposes the weakness of repeated voting: across three generators, repeated-model verification raises accepted-but-wrong rates by 17–27 percentage points above the nonadaptive baseline, while calibrated cross-model voting remains within three points. These findings establish shared-error measurement and mechanism-diverse checking as central design requirements for reliable LLM verification. Verification strength depends on the independence of the checks, not simply on how many models agree.</p>
+  </section>
+
+  <section id="findings" aria-labelledby="h-findings">
+    <h2 class="col" id="h-findings">Key findings</h2>
+    <ul class="findings mid">
+      <li><div class="k">3.3–9.7×</div><p class="v">All-member failure relative to the independence product, across the controlled and repository studies. For the held-out cross-model trio the ratio is 5.7×, with a 95% delta-method interval of [2.4, 13.8]×; a cluster-preserving permutation test gives <span class="nw">p = 0.002.</span></p></li>
+      <li><div class="k">15 of 15</div><p class="v">Model pairs whose errors are positively correlated on the held-out set <span class="nw">(φ = 0.29–0.58).</span> One shared factor explains 61% of cross-model error variance, and joint failure rises from 0 of 19 easy candidates to 6 of 12 hard ones.</p></li>
+      <li><div class="k"><span class="c4">+<span class="nw">33.8 pp</span></span></div><p class="v">Gain in correct acceptance across all 130 labeled repository candidates when the 34 disagreements between Qwen3-Coder and Claude Sonnet 5 go to pytest rather than DeepSeek V3.2: from 45.1% to 78.9%. Wrong acceptance falls from 13.6% to 8.5%, and expected cost drops from 2.02 to 1.91 median Sonnet calls.</p></li>
+      <li><div class="k">+<span class="nw">24.4 pp</span></div><p class="v">Accuracy advantage of pytest routing on 41 candidates whose labels do not depend on pytest (82.9% versus 58.5%). After external adjudication of all 11 disputed labels, the policy scores 83.0% accuracy on all 141 candidates.</p></li>
+      <li><div class="k"><span class="c2">+17 to +<span class="nw">27 pp</span></span></div><p class="v">Increase in accepted-but-wrong mutations for three repeated Claude Sonnet 5 votes under targeted search, across three mutation generators, over a 28.0% nonadaptive baseline. The calibrated cross-model vote stays within <span class="nw">3 points</span>.</p></li>
+    </ul>
+  </section>
+
+  <section class="wide" id="slides" aria-labelledby="h-slides">
+    <h2 class="col" id="h-slides">Talk slides</h2>
+    <div class="deck" data-deck data-count="12" data-base="assets/slides/slide-" data-titles="[&quot;Three Agents Are Not Three Verifiers&quot;, &quot;Agreeing verifiers are not independent evidence&quot;, &quot;Three linked studies, six verifier models&quot;, &quot;More votes, or a different checker?&quot;, &quot;Joint failure is 3.3–9.7× the independent rate&quot;, &quot;Shared errors span every model pair&quot;, &quot;Shared failures concentrate on hard cases&quot;, &quot;A different checker beats another vote&quot;, &quot;The routing gain survives independent labels&quot;, &quot;Targeted search exploits repeated voting&quot;, &quot;Measure joint error on your own distribution&quot;, &quot;Count independent checks, not agreeing models&quot;]" role="region" aria-roledescription="carousel" aria-label="Talk slides">
+      <div>
+        <div class="deck-stage" tabindex="0" aria-label="Current slide. Use the arrow keys to move between slides.">
+          <img src="assets/slides/slide-01.webp" width="1600" height="900" alt="Slide 1 of 12: Three Agents Are Not Three Verifiers" decoding="async">
+        </div>
+        <div class="deck-bar">
+          <button type="button" class="ibtn" data-prev aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="deck-count" aria-live="polite">Slide 1 of 12</span>
+          <button type="button" class="ibtn" data-next aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button>
+          <span class="grow"></span>
+          <a class="dl" href="diverse-verification-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span>Download PDF</span></a>
+          <button type="button" class="ibtn" data-fullscreen aria-label="Show slides full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+        </div>
+        <noscript><p class="note">The slide viewer needs JavaScript. <a href="diverse-verification-slides.pdf">Download the slides as a PDF</a>.</p></noscript>
+      </div>
+      <nav class="outline-wrap" aria-label="Slide list">
+        <ol class="outline">
+          <li><button type="button" aria-current="true"><span>1</span><span>Three Agents Are Not Three Verifiers</span></button></li>
+          <li><button type="button" aria-current="false"><span>2</span><span>Agreeing verifiers are not independent evidence</span></button></li>
+          <li><button type="button" aria-current="false"><span>3</span><span>Three linked studies, six verifier models</span></button></li>
+          <li><button type="button" aria-current="false"><span>4</span><span>More votes, or a different checker?</span></button></li>
+          <li><button type="button" aria-current="false"><span>5</span><span>Joint failure is 3.3–9.7× the independent rate</span></button></li>
+          <li><button type="button" aria-current="false"><span>6</span><span>Shared errors span every model pair</span></button></li>
+          <li><button type="button" aria-current="false"><span>7</span><span>Shared failures concentrate on hard cases</span></button></li>
+          <li><button type="button" aria-current="false"><span>8</span><span>A different checker beats another vote</span></button></li>
+          <li><button type="button" aria-current="false"><span>9</span><span>The routing gain survives independent labels</span></button></li>
+          <li><button type="button" aria-current="false"><span>10</span><span>Targeted search exploits repeated voting</span></button></li>
+          <li><button type="button" aria-current="false"><span>11</span><span>Measure joint error on your own distribution</span></button></li>
+          <li><button type="button" aria-current="false"><span>12</span><span>Count independent checks, not agreeing models</span></button></li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="method" aria-labelledby="h-method">
+    <div class="col">
+      <h2 id="h-method">Measuring shared error</h2>
+      <p>A vote adds evidence only when its members rarely fail together. The study measures <em>all-member failure</em>, the share of candidates on which every verifier in a panel <i>S</i> is wrong, and compares it with the rate expected if member errors were independent:</p>
+      <p class="eq"><i>JF</i>(<i>S</i><span class="nw">) = (1/</span><i>n</i>) Σ<sub><i>x</i></sub> Π<sub><i>i</i>∈<i>S</i></sub> <i>e</i><sub><i>i</i></sub>(<i>x</i>)&emsp;versus&emsp;<i>JF</i><sub>ind</sub>(<i>S</i><span class="nw">) = Π</span><sub><i>i</i>∈<i>S</i></sub> <i>p</i><sub><i>i</i></sub></p>
+      <p>A ratio above 1 means common-mode failure. Six verifier models (Claude Sonnet 5, Claude Opus 5, Qwen3-Coder, DeepSeek V3.2, Devstral 2, and GPT-5.6 Terra) take part in three linked studies:</p>
+      <dl class="terms">
+        <dt>Controlled executable study</dt>
+        <dd>1,152 judgments on 64 artifacts from 23 task groups: 16 Verus, 24 Lean, 12 SMT, and 12 repository patches with pinned pytest outcomes, split into 17 calibration and 47 held-out candidates.</dd>
+        <dt>Repository study</dt>
+        <dd>141 candidates from 47 popular PyPI packages, labeled with full tests, downstream tests, and two blinded expert reviews <span class="nw">(κ = 0.73).</span> 130 have resolved labels: 71 correct and 59 wrong.</dd>
+        <dt>Targeted mutation search</dt>
+        <dd>Three generators propose return substitutions, boundary shifts, branch flips, and off-by-one errors. Each policy gets up to 500 attempts and stops after 20 accepted mutations or, once at least 15 are accepted, after 100 consecutive rejections.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="routing" aria-labelledby="h-routing">
+    <div class="col">
+      <h2 id="h-routing">A different checker beats another vote</h2>
+      <p>On 130 repository candidates with resolved labels, model-only policies trade one error for another. Against a single GPT-5.6 Terra judge, the calibrated three-model vote cuts wrong acceptance from 16.9% to 10.2%, but correct acceptance falls from 70.4% to 56.3%. Changing the mechanism moves the operating point instead. Qwen3-Coder and Claude Sonnet 5 disagree on 34 of the 130 candidates. Sending those cases to the repository’s pytest suite gives the full policy 8.5% wrong acceptance, 78.9% correct acceptance, and 84.6% accuracy across all 130; sending them to DeepSeek V3.2 instead gives 13.6%, 45.1%, and 63.8%.</p>
+    </div>
+    <figure class="mid" id="figure-2">
+  <div class="plate"><img src="assets/fig2-repository-tradeoff.webp" width="1650" height="934" alt="Scatter plot of correct against wrong acceptance for verification policies on repository candidates. The Qwen plus Sonnet to pytest tiebreaker sits at the upper left with 78.9% correct and 8.5% wrong acceptance; the same disagreements sent to DeepSeek sit at 45.1% correct and 13.6% wrong." decoding="async" loading="lazy"></div>
+  <figcaption><b>Figure 2.</b> Repository acceptance tradeoff on 59 wrong and 71 correct candidates. The upper-left direction is preferable. Circles denote single judges, squares three-LLM voting policies, the diamond the DeepSeek tiebreaker, and the star the pytest tiebreaker. The repeated-vote square and DeepSeek-routing diamond share the same coordinates but have different costs. The dashed arrow links the two same-trigger routing outcomes; it is not a Pareto frontier.</figcaption>
+</figure>
+  </section>
+
+  <section id="adaptive" aria-labelledby="h-adaptive">
+    <div class="col">
+      <h2 id="h-adaptive">Targeted search exploits repeated voting</h2>
+      <p>An adversary who searches for mutations a policy will accept finds the blind spots of repeated voting. With Claude Sonnet 4.7 generating mutations, three repeated Claude Sonnet 5 votes accept wrong code <span class="nw">27.0 points</span> above the 28.0% nonadaptive baseline (95% CI [6.8, 48.2]), the only interval entirely above zero. Across all three generators the increase is 17 to <span class="nw">27 points</span>, while the calibrated cross-model vote stays within <span class="nw">3 points</span> of the baseline.</p>
+    </div>
+    <figure class="mid" id="figure-3">
+  <div class="plate"><img src="assets/fig3-targeted-search.webp" width="1647" height="1067" alt="Interval plot of the change in accepted-but-wrong rate under targeted search, relative to a 28.0% baseline: single Claude Sonnet 5 +12.0 points, three repeated Sonnet votes +27.0 points with an interval entirely above zero, uncalibrated three-model vote +7.0, calibrated three-model vote −0.2." decoding="async" loading="lazy"></div>
+  <figcaption><b>Figure 3.</b> Risk of accepting wrong mutations under targeted search. Changes are percentage points relative to the 28.0% nonadaptive accepted-but-wrong baseline. Horizontal bars are 95% confidence intervals for the Claude Sonnet 4.7 generator; n counts accepted mutations, not generated attempts. Intervals spanning zero do not establish immunity to targeted search.</figcaption>
+</figure>
+  </section>
+
+  <section id="practice" aria-labelledby="h-practice">
+    <div class="col">
+      <h2 id="h-practice">Using this in practice</h2>
+      <p>The paper’s recommended workflow for deploying LLM verifiers:</p>
+      <ol class="steps">
+        <li><b>Use the same labeled examples.</b> Evaluate every candidate verifier on one shared, labeled candidate set.</li>
+        <li><b>Report joint, not marginal, error.</b> Compare all-member failure with the independence product.</li>
+        <li><b>Pick a cost-aware operating point.</b> Use the relative cost of wrong acceptance and correct rejection in your application.</li>
+        <li><b>Measure before you route.</b> Here, sending Qwen3-Coder and Claude Sonnet 5 disagreements to pytest beat sending them to DeepSeek V3.2, but that does not make execution universally better. Measure joint failure on your own candidates before choosing a routing strategy, and re-evaluate after changing prompts, providers, or model versions.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="limitations" aria-labelledby="h-limitations">
+    <div class="col">
+      <h2 id="h-limitations">Scope and limitations</h2>
+      <dl class="terms">
+        <dt>Scope</dt><dd>Executable formal artifacts and Python repositories with pytest suites. Rates are distribution-specific, so measure joint error on your own data.</dd>
+        <dt>Small samples</dt><dd>Seventeen calibration candidates; the adaptive search uses three generators, four mutation operators, and up to 20 accepted mutations per policy.</dd>
+        <dt>Shared pytest</dt><dd>pytest informs both the reference labels and the routing policy. Independent labels and external adjudication mitigate this overlap but do not remove it.</dd>
+        <dt>Hosted endpoints</dt><dd>Results reflect provider-specific serving. In an 11-day repeat check, 46 of 48 decisions held.</dd>
+      </dl>
+      
+    </div>
+    
+  </section>
+
+  <section class="col" id="reproducibility" aria-labelledby="h-repro">
+    <h2 id="h-repro">Reproducibility</h2>
+    <p>The <a href="source.zip">source archive</a> on this site contains the manuscript source, the figure script, the aggregate values used in the manuscript, and reproducibility notes on models, decoding settings, and policy definitions. The anonymized supplement attached to the <a href="https://openreview.net/forum?id=Klbp3xuEkw">OpenReview submission</a> adds candidate-level evaluation records, verifier and policy decisions, configuration files, analysis code, tests, and documented offline commands for reproducing the reported analyses.</p>
+    <p class="note">This page follows the NeurIPS 2026 workshop version of the paper on OpenReview. The site also hosts a <a href="diverse-verification.pdf">preprint version (PDF)</a>.</p>
+  </section>
+
+  <section class="col" id="cite" aria-labelledby="h-cite">
+    <h2 id="h-cite">Cite this paper</h2>
+    <div class="bib"><pre><code id="bibtex">@inproceedings{agrawal2026diverseverification,
+  title={Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification},
+  author={Agrawal, Adarsh},
+  booktitle={NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics},
+  year={2026},
+  url={https://openreview.net/forum?id=Klbp3xuEkw}
+}</code></pre></div>
+    <div class="copyrow">
+      <button type="button" class="btn" data-copy="bibtex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Copy BibTeX</button>
+      <span class="status" data-copy-status aria-live="polite"></span>
+    </div>
+  </section>
+
+  <section class="col" id="related" aria-labelledby="h-related">
+    <h2 id="h-related">Related papers</h2>
+    <ul class="related">
+      <li><a href="/papers/intent-shield/">When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus</a><span class="kind">Project page, also at this workshop</span></li>
+      <li><a href="/papers/action-proof/action-proof.pdf">ActionProof: Verifying Multi-Step Coding-Agent Transactions</a><span class="kind">Paper (PDF)</span></li>
+      <li><a href="/papers/branch-credit/branch-credit-camera-ready.pdf">When Process Credit Cannot Matter: Auditing Decision Authority in Verifier-Guided Repair</a><span class="kind">Paper (PDF)</span></li>
+    </ul>
+    <p class="note" style="margin-top:1rem"><a href="/research.html">All publications and technical reports</a></p>
+  </section>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="page-shell footer-inner">
+    <div><strong>Adarsh Agrawal</strong><span>Senior Applied Scientist at Amazon</span></div>
+    <div class="footer-links">
+      <a href="mailto:adarsh.bjb@gmail.com">Email</a>
+      <a href="https://scholar.google.com/citations?user=fbqZ9wcAAAAJ&amp;hl=en" target="_blank" rel="noreferrer">Scholar</a>
+      <a href="https://github.com/addarshh" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://linkedin.com/in/adarshagrawal01" target="_blank" rel="noreferrer">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const deck = document.querySelector('[data-deck]');
+  if (deck) {
+    const n = +deck.dataset.count, base = deck.dataset.base, titles = JSON.parse(deck.dataset.titles);
+    const stage = deck.querySelector('.deck-stage'), img = stage.querySelector('img');
+    const count = deck.querySelector('.deck-count');
+    const prev = deck.querySelector('[data-prev]'), next = deck.querySelector('[data-next]');
+    const items = [...deck.querySelectorAll('.outline button')];
+    const src = (k) => base + String(k).padStart(2, '0') + '.webp';
+    let i = 1;
+    const show = (k) => {
+      i = Math.min(n, Math.max(1, k));
+      img.src = src(i);
+      img.alt = 'Slide ' + i + ' of ' + n + ': ' + titles[i - 1];
+      count.textContent = 'Slide ' + i + ' of ' + n;
+      prev.disabled = i === 1;
+      next.disabled = i === n;
+      items.forEach((b, j) => b.setAttribute('aria-current', j + 1 === i ? 'true' : 'false'));
+      if (i < n) { const pre = new Image(); pre.src = src(i + 1); }
+    };
+    prev.addEventListener('click', () => show(i - 1));
+    next.addEventListener('click', () => show(i + 1));
+    items.forEach((b, j) => b.addEventListener('click', () => show(j + 1)));
+    stage.addEventListener('click', (e) => {
+      const r = stage.getBoundingClientRect();
+      show(i + (e.clientX - r.left > r.width / 2 ? 1 : -1));
+    });
+    deck.addEventListener('keydown', (e) => {
+      const keys = { ArrowRight: i + 1, PageDown: i + 1, ArrowLeft: i - 1, PageUp: i - 1, Home: 1, End: n };
+      if (e.key in keys && !e.target.closest('.outline')) { show(keys[e.key]); e.preventDefault(); }
+    });
+    let x0 = null;
+    stage.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+      x0 = null;
+    });
+    const fs = deck.querySelector('[data-fullscreen]');
+    if (!stage.requestFullscreen) fs.hidden = true;
+    else fs.addEventListener('click', () => (document.fullscreenElement ? document.exitFullscreen() : stage.requestFullscreen()));
+    const m = location.hash.match(/^#slide-(\d+)$/);
+    show(m ? +m[1] : 1);
+    if (m) deck.scrollIntoView();
+  }
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const nav = document.querySelector('[data-site-nav]');
+  if (toggle && nav) {
+    const icons = { open: toggle.dataset.iconX, closed: toggle.innerHTML };
+    const setMenu = (open) => {
+      nav.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      toggle.setAttribute('title', open ? 'Close navigation' : 'Open navigation');
+      toggle.innerHTML = open ? icons.open : icons.closed;
+    };
+    toggle.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
+    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('resize', () => { if (window.innerWidth > 860) setMenu(false); });
+  }
+  const copy = document.querySelector('[data-copy]');
+  if (copy) {
+    const status = document.querySelector('[data-copy-status]');
+    const code = document.getElementById(copy.dataset.copy);
+    copy.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code.textContent);
+        status.textContent = 'Copied to clipboard';
+      } catch (err) {
+        const r = document.createRange(); r.selectNodeContents(code);
+        const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        status.textContent = 'Selected. Press Ctrl+C or ⌘C to copy';
+      }
+      setTimeout(() => { status.textContent = ''; }, 4000);
+    });
+  }
+})();
+</script>
+</body>
+</html>

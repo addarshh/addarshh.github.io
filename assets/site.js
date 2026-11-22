@@ -15,17 +15,19 @@ const citations = {
   year={2026},
   url={https://addarshh.github.io/papers/belief-lifecycle/belief-lifecycle-preprint.pdf}
 }`,
-  martingaleaudit2026: `@misc{agrawal2026martingaleaudit,
+  martingaleaudit2026: `@inproceedings{agrawal2026martingaleaudit,
   title={Do LLM Forecasts Change Their Minds Coherently?},
   author={Agrawal, Adarsh},
+  booktitle={NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling},
   year={2026},
-  url={https://addarshh.github.io/papers/martingale-audit/martingale-audit.pdf}
+  url={https://openreview.net/forum?id=m9twt6TIfv}
 }`,
-  reliabilityhorizon2026: `@misc{agrawal2026reliabilityhorizon,
+  reliabilityhorizon2026: `@inproceedings{agrawal2026reliabilityhorizon,
   title={The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration},
   author={Agrawal, Adarsh},
+  booktitle={NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling},
   year={2026},
-  url={https://addarshh.github.io/papers/reliability-horizon/reliability-horizon.pdf}
+  url={https://openreview.net/forum?id=emVhXV7PHf}
 }`,
   textjudges2026: `@inproceedings{agrawal2026textjudges,
   title={Text Judges Can't Hear: Prosodic Contrast Sets Expose Systematic Bias in Voice AI Evaluation},
@@ -53,11 +55,12 @@ const citations = {
   year={2026},
   url={https://addarshh.github.io/papers/test2spec2proof/test2spec2proof.pdf}
 }`,
-  diverseverification2026: `@misc{agrawal2026diverseverification,
+  diverseverification2026: `@inproceedings{agrawal2026diverseverification,
   title={Three Agents Are Not Three Verifiers: Measuring Common-Mode Failure in LLM Verification},
   author={Agrawal, Adarsh},
+  booktitle={NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics},
   year={2026},
-  url={https://addarshh.github.io/papers/diverse-verification/diverse-verification.pdf}
+  url={https://openreview.net/forum?id=Klbp3xuEkw}
 }`,
   branchcredit2026: `@misc{agrawal2026branchcredit,
   title={When Process Credit Cannot Matter: Auditing Decision Authority in Verifier-Guided Repair},
@@ -77,11 +80,12 @@ const citations = {
   year={2026},
   url={https://addarshh.github.io/papers/proofdebt/proofdebt-camera-ready.pdf}
 }`,
-  intentshield2026: `@misc{agrawal2026intentshield,
+  intentshield2026: `@inproceedings{agrawal2026intentshield,
   title={When Correctness Feedback Erases Evidence: Phase-Separated Completeness Auditing in Verus},
   author={Agrawal, Adarsh},
+  booktitle={NeurIPS 2026 Workshop on AI for Verifiable Coding: Human-Aligned Collaborative Agents for Autoformalization, Proofs, and Heuristics},
   year={2026},
-  url={https://addarshh.github.io/papers/intent-shield/intent-shield.pdf}
+  url={https://openreview.net/forum?id=N6yfUR70Uu}
 }`,
   incident2026: `@misc{agrawal2026incidentmemory,
   title={Incident Memory: Training-Free Operational Memory through Sequential Pattern Mining and Velocity-Stratified Retrieval},

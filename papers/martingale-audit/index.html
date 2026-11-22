@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do LLM Forecasts Change Their Minds Coherently? | Adarsh Agrawal</title>
+<meta name="description" content="A martingale-based audit of full probability paths showing that language-model forecasts exhibit excess movement relative to prediction-market crowds, while stronger systems approach crowd-level temporal coherence.">
+<meta name="author" content="Adarsh Agrawal">
+<link rel="canonical" href="https://addarshh.github.io/papers/martingale-audit/">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Adarsh Agrawal">
+<meta property="og:title" content="Do LLM Forecasts Change Their Minds Coherently?">
+<meta property="og:description" content="A martingale-based audit of full probability paths showing that language-model forecasts exhibit excess movement relative to prediction-market crowds, while stronger systems approach crowd-level temporal coherence.">
+<meta property="og:url" content="https://addarshh.github.io/papers/martingale-audit/">
+<meta property="og:image" content="https://addarshh.github.io/papers/martingale-audit/assets/social-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Title slide of the talk for Do LLM Forecasts Change Their Minds Coherently?">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Do LLM Forecasts Change Their Minds Coherently?">
+<meta name="twitter:description" content="A martingale-based audit of full probability paths showing that language-model forecasts exhibit excess movement relative to prediction-market crowds, while stronger systems approach crowd-level temporal coherence.">
+<meta name="twitter:image" content="https://addarshh.github.io/papers/martingale-audit/assets/social-card.jpg">
+<meta name="citation_title" content="Do LLM Forecasts Change Their Minds Coherently?">
+<meta name="citation_author" content="Agrawal, Adarsh">
+<meta name="citation_publication_date" content="2026">
+<meta name="citation_conference_title" content="NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling">
+<meta name="citation_pdf_url" content="https://openreview.net/pdf?id=m9twt6TIfv">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ScholarlyArticle",
+ "headline": "Do LLM Forecasts Change Their Minds Coherently?",
+ "name": "Do LLM Forecasts Change Their Minds Coherently?",
+ "author": [
+  {
+   "@type": "Person",
+   "name": "Adarsh Agrawal",
+   "url": "https://addarshh.github.io/"
+  }
+ ],
+ "datePublished": "2026",
+ "url": "https://addarshh.github.io/papers/martingale-audit/",
+ "sameAs": [
+  "https://openreview.net/forum?id=m9twt6TIfv"
+ ],
+ "image": "https://addarshh.github.io/papers/martingale-audit/assets/social-card.jpg",
+ "keywords": "large language models, probabilistic forecasting, Bayesian updating, martingales, temporal coherence, prediction markets",
+ "abstract": "Forecasting benchmarks score where a model finishes, not how it gets there. We introduce a martingale audit of the full probability path. Under coherent Bayesian updating, expected squared movement M equals expected uncertainty reduction R, so the residual C = M − R has mean zero and requires neither the outcome nor intermediate probability labels. On 73 resolved Polymarket markets across 21 topics, an eight-system LLM panel shows a model–crowd residual gap of +0.061 (95% CI [+0.018, +0.105]; Wilcoxon p = 3.7 × 10−6). Excess movement accounts for 80% of the gap, and the gap persists when both endpoints are matched (+0.048). A headline-only baseline given identical evidence stays near zero (C = +0.008), ruling out the headline channel alone as an explanation. The result holds under equal topic weighting, wild-cluster and jackknife inference, a stochastic elicitation stress test, and on 41 prospectively frozen markets (+0.054). LLM paths reverse direction more often than the crowd (36% versus 27%), and the gap shrinks with external capability (−0.024 per tier). Path coherence exposes revision behavior that endpoint scores miss.",
+ "isPartOf": {
+  "@type": "PublicationEvent",
+  "name": "NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling"
+ },
+ "encoding": {
+  "@type": "MediaObject",
+  "contentUrl": "https://openreview.net/pdf?id=m9twt6TIfv",
+  "encodingFormat": "application/pdf"
+ }
+}
+</script>
+<style>
+:root{--a1:#0F4D92;--a2:#B64342;--a3:#2F7780;}
+:root{
+  --ink:#18202E; --body:#2B3442; --muted:#5B6573; --faint:#8A93A0; --rule:#D9DEE5; --fog:#F3F5F8; --paper:#FFFFFF;
+  --signal:#0F4D92; --signal-deep:#0B3A6E;
+  --serif:Charter,"Bitstream Charter","Sitka Text",Cambria,"Iowan Old Style",Georgia,serif;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --measure:42rem; --wide:68rem; --gutter:clamp(1.25rem,4vw,2.5rem);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--body);font:400 1.125rem/1.65 var(--serif);font-kerning:normal;font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:var(--signal);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{color:var(--signal-deep);text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:1rem;top:1rem;z-index:20;background:var(--paper);padding:.5rem .8rem;font:600 .95rem/1 var(--sans)}
+
+/* site chrome: same markup and rules as assets/site.css */
+.site-header,.site-footer{color:#111;font:400 16px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif}
+.site-header{position:relative;min-height:57px;border-bottom:1px solid #e8e8e8}
+.nav-shell,.page-shell{width:100%;max-width:800px;margin-right:auto;margin-left:auto;padding-right:30px;padding-left:30px}
+.nav-shell{position:relative;min-height:56px}
+.nav-shell::after,.footer-inner::after{display:table;clear:both;content:""}
+.site-name{float:left;margin-bottom:0;color:#424242;font-size:26px;font-weight:300;line-height:56px;text-decoration:none}
+.site-name:visited,.site-name:hover,.site-name:focus-visible{color:#424242;text-decoration:none}
+.site-nav{float:right;line-height:56px}
+.site-nav a,.site-nav a:visited{color:#111;line-height:1.5;text-decoration:none}
+.site-nav a:hover,.site-nav a:focus-visible{color:#111;text-decoration:underline}
+.site-nav a:not(:last-child){margin-right:20px}
+.menu-button{display:none;border:0;background:transparent;color:#424242;cursor:pointer}
+.menu-button svg{width:18px;height:18px;stroke-width:1.8}
+
+main{padding:0 var(--gutter)}
+.col{max-width:var(--measure);margin-left:auto;margin-right:auto}
+.wide{max-width:var(--wide);margin-left:auto;margin-right:auto}
+.mid{max-width:56rem;margin-left:auto;margin-right:auto}
+
+/* hero */
+.hero{padding:clamp(2.5rem,7vw,4.75rem) 0 0}
+.venue{font:500 .95rem/1.45 var(--sans);color:var(--muted);margin:0 0 1.1rem}
+.venue a{color:inherit}
+h1{margin:0;color:var(--ink);font-family:var(--serif);font-weight:700;letter-spacing:-.012em}
+h1 .t-main{display:block;font-size:clamp(2.05rem,1.2rem + 3.3vw,3.35rem);line-height:1.08;text-wrap:balance}
+h1 .t-sub{display:block;margin-top:.55rem;font-size:clamp(1.2rem,.98rem + .95vw,1.65rem);line-height:1.28;font-weight:400;letter-spacing:0;color:var(--body);text-wrap:balance}
+.byline{margin:1.35rem 0 0;font:400 1.02rem/1.5 var(--sans);color:var(--muted)}
+.byline a{color:var(--ink);font-weight:600;text-decoration:none}
+.byline a:hover{text-decoration:underline}
+.links{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.6rem 0 0;padding:0;list-style:none}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.62rem .95rem;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);font:500 .95rem/1 var(--sans);text-decoration:none;cursor:pointer}
+.btn:visited{color:var(--ink)}
+.btn:hover{border-color:var(--ink);color:var(--ink);text-decoration:none}
+.btn.primary,.btn.primary:visited{background:var(--signal);border-color:var(--signal);color:#fff}
+.btn.primary:hover{background:var(--signal-deep);border-color:var(--signal-deep);color:#fff}
+.btn svg{width:1.05em;height:1.05em;flex:none}
+
+/* the claim: the page's one loud element */
+.claim{margin:2.4rem auto 0;color:var(--ink);font:400 clamp(1.24rem,1.04rem + .8vw,1.52rem)/1.5 var(--serif);text-wrap:pretty}
+.n{font-weight:700;white-space:nowrap}
+.nw{white-space:nowrap}
+.c1{color:var(--a1)}.c2{color:var(--a2)}.c3{color:var(--a3)}.c4{color:var(--a4)}.c5{color:var(--a5)}
+
+/* figures */
+figure{margin:2.6rem auto 0}
+.plate{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:clamp(.6rem,2vw,1.4rem)}
+figure img{display:block;width:100%;height:auto}
+figcaption{max-width:var(--measure);margin:.85rem auto 0;font:400 .9rem/1.55 var(--sans);color:var(--muted)}
+figcaption b{color:var(--ink);font-weight:600}
+
+/* sections */
+section{margin-top:clamp(3.2rem,7vw,4.75rem)}
+h2{margin:0 0 1rem;color:var(--ink);font:700 clamp(1.45rem,1.2rem + .9vw,1.85rem)/1.2 var(--serif);letter-spacing:-.005em}
+h3{margin:2.1rem 0 .55rem;color:var(--ink);font:600 1.12rem/1.35 var(--sans)}
+p{margin:0 0 1rem}
+.sc{font-variant-caps:all-small-caps;letter-spacing:.04em;font-variant-numeric:lining-nums}
+.eq{margin:1.25rem 0;padding:.9rem 1.1rem;background:var(--fog);border-radius:8px;font:400 1.08rem/1.9 var(--serif);color:var(--ink);overflow-x:auto}
+.eq i{font-style:italic}
+.note{font:400 .95rem/1.55 var(--sans);color:var(--muted)}
+
+/* findings: number hangs on the left, sentence on the right */
+.findings{list-style:none;margin:1.4rem auto 0;padding:0}
+.findings li{display:grid;grid-template-columns:13rem minmax(0,1fr);gap:1.5rem;padding:1.15rem 0;border-top:1px solid var(--rule)}
+.findings li:last-child{border-bottom:1px solid var(--rule)}
+.findings .k{color:var(--ink);font:650 1.42rem/1.25 var(--sans);letter-spacing:-.01em}
+.findings .v{margin:0;font-size:1.05rem;line-height:1.6}
+
+/* ordered procedures (real sequences only) */
+.steps{margin:1.2rem 0 1.4rem;padding:0;list-style:none;counter-reset:step}
+.steps li{position:relative;padding:.1rem 0 .9rem 2.6rem;counter-increment:step}
+.steps li::before{content:counter(step);position:absolute;left:0;top:.15rem;width:1.75rem;height:1.75rem;border-radius:50%;background:var(--ink);color:#fff;font:600 .9rem/1.75rem var(--sans);text-align:center}
+.steps b{color:var(--ink)}
+
+/* term lists: limitations, study arms */
+.terms{margin:1.2rem 0 1.2rem}
+.terms dt{margin-top:1.1rem;color:var(--ink);font:600 1.02rem/1.4 var(--sans)}
+.terms dt:first-child{margin-top:0}
+.terms dd{margin:.25rem 0 0}
+
+/* tables */
+.tablewrap{overflow-x:auto;margin:1.4rem 0}
+table{border-collapse:collapse;width:100%;font:400 .95rem/1.45 var(--sans);font-variant-numeric:lining-nums tabular-nums}
+th,td{padding:.6rem .75rem .6rem 0;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+th{color:var(--muted);font-weight:600}
+td:first-child{color:var(--ink);font-weight:600}
+
+/* slide viewer */
+.deck{display:grid;grid-template-columns:minmax(0,1fr) 16.5rem;gap:1.75rem;align-items:start;margin-top:1.4rem}
+.deck-stage{position:relative;aspect-ratio:16/9;background:var(--fog);border:1px solid var(--rule);border-radius:10px;overflow:hidden;cursor:pointer}
+.deck-stage img{display:block;width:100%;height:100%;object-fit:contain}
+.deck-stage:fullscreen{background:#000;border:0;border-radius:0}
+.deck-bar{display:flex;align-items:center;gap:.5rem;margin-top:.8rem;font:500 .92rem/1 var(--sans);color:var(--muted)}
+.ibtn{display:inline-grid;place-items:center;width:2.4rem;height:2.4rem;padding:0;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}
+.ibtn:hover{border-color:var(--ink)}
+.ibtn:disabled{color:var(--faint);border-color:var(--rule);cursor:default}
+.ibtn svg{width:1.15rem;height:1.15rem}
+.deck-count{min-width:7.2rem;text-align:center;font-variant-numeric:tabular-nums}
+.deck-bar .grow{flex:1}
+.deck-bar .dl{display:inline-flex;align-items:center;gap:.45rem;color:var(--signal);text-decoration:none}
+.deck-bar .dl:hover{text-decoration:underline}
+.deck-bar .dl svg{width:1.05rem;height:1.05rem}
+.outline{list-style:none;margin:0;padding:0;font:400 .9rem/1.35 var(--sans)}
+.outline button{display:grid;grid-template-columns:1.7rem minmax(0,1fr);width:100%;padding:.42rem .55rem;border:0;border-radius:6px;background:none;color:var(--muted);font:inherit;text-align:left;cursor:pointer}
+.outline button:hover{color:var(--ink)}
+.outline button span:first-child{color:var(--faint);font-variant-numeric:tabular-nums}
+.outline button[aria-current="true"]{background:var(--fog);color:var(--ink);font-weight:600}
+.outline button[aria-current="true"] span:first-child{color:var(--ink)}
+
+/* citation */
+.bib{margin:1.2rem 0 0;padding:1.1rem 1.25rem;background:var(--fog);border-radius:10px;overflow-x:auto}
+.bib pre{margin:0;font:400 .84rem/1.65 var(--mono);color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere}
+.copyrow{display:flex;align-items:center;gap:.9rem;margin-top:.8rem}
+.copyrow .status{font:400 .9rem/1 var(--sans);color:var(--muted)}
+
+/* related */
+.related{list-style:none;margin:1rem 0 0;padding:0}
+.related li{padding:.85rem 0;border-top:1px solid var(--rule)}
+.related li:last-child{border-bottom:1px solid var(--rule)}
+.related a{font-weight:600}
+.related .kind{display:block;margin-top:.15rem;font:400 .88rem/1.4 var(--sans);color:var(--muted)}
+
+/* footer: same markup and rules as assets/site.css */
+.site-footer{margin-top:clamp(4rem,9vw,6rem);padding:30px 0;border-top:1px solid #e8e8e8}
+.footer-inner{color:#828282;font-size:15px}
+.footer-inner>div:first-child,.footer-links{float:left;width:50%}
+.footer-inner strong,.footer-inner span{display:block}
+.footer-inner strong{color:#828282;font-weight:400}
+.footer-links a{display:block;color:#2a7ae2;text-decoration:none}
+.footer-links a:visited{color:#1756a9}
+.footer-links a:hover,.footer-links a:focus-visible{color:#113f7c;text-decoration:underline}
+
+@media screen and (max-width:800px){
+  .page-shell,.nav-shell{max-width:770px;padding-right:15px;padding-left:15px}
+}
+@media screen and (max-width:600px){
+  .site-nav{position:absolute;z-index:30;top:48px;right:15px;display:none;min-width:150px;padding:5px 0;border:1px solid #e8e8e8;border-radius:5px;background:#fff;line-height:1.5;text-align:right}
+  .site-nav.is-open{display:block}
+  .site-nav a{display:block;margin:0;padding:5px 10px}
+  .site-nav a:not(:last-child){margin-right:0}
+  .menu-button{position:absolute;z-index:31;top:9px;right:15px;display:grid;width:36px;height:38px;padding:0;place-items:center}
+  .footer-inner>div:first-child,.footer-links{float:none;width:100%}
+  .footer-links{margin-top:15px}
+}
+@media screen and (max-width:390px){
+  .site-name{font-size:23px}
+}
+
+@media (max-width:960px){
+  .deck{grid-template-columns:1fr}
+  .deck .outline-wrap{display:none}
+}
+@media (max-width:720px){
+  body{font-size:1.0625rem}
+  .findings li{grid-template-columns:1fr;gap:.3rem}
+  .findings .k{font-size:1.3rem}
+  .deck-bar .dl span{display:none}
+}
+@media print{
+  .site-header,.links,.deck,.copyrow,.site-footer{display:none}
+  body{font-size:11pt}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="site-name" href="/index.html">Adarsh Agrawal</a>
+    <button class="menu-button" type="button" data-menu-toggle data-icon-x="&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M18 6 6 18&quot;/&gt;&lt;path d=&quot;m6 6 12 12&quot;/&gt;&lt;/svg&gt;" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation" title="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/></svg></button>
+    <nav class="site-nav" id="site-nav" data-site-nav aria-label="Primary navigation">
+      <a href="/index.html">About</a>
+      <a href="/experience.html">CV</a>
+      <a href="/research.html">Research</a>
+      <a href="/recognition.html">Others</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article>
+  <header class="hero col">
+    <p class="venue">Poster at the <a href="https://neurips.cc/virtual/2026/workshop/137514">NeurIPS 2026 Workshop on Foundation Models for Temporal Systems</a></p>
+    <h1><span class="t-main">Do LLM Forecasts Change Their Minds Coherently?</span></h1>
+    <p class="byline"><a href="/index.html">Adarsh Agrawal</a></p>
+    <ul class="links" aria-label="Paper resources">
+      <li><a class="btn primary" href="https://openreview.net/pdf?id=m9twt6TIfv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Paper</a></li>
+      <li><a class="btn" href="https://openreview.net/forum?id=m9twt6TIfv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg>OpenReview</a></li>
+      <li><a class="btn" href="martingale-audit-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</a></li>
+      <li><a class="btn" href="#cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>Cite</a></li>
+    </ul>
+  </header>
+
+  <p class="claim col">A coherent forecaster’s probability path moves, in expectation, exactly as much as it resolves uncertainty. LLM forecasters move more. On 73 resolved Polymarket markets, an eight-system panel exceeded the crowd’s martingale residual by <span class="n c1">+0.061</span> (95% CI [+0.018, +0.105]), and <span class="n c1">80%</span> of that gap is excess movement.</p>
+
+  <figure class="wide" id="figure-1">
+  <div class="plate"><img src="assets/fig1-residual-gap.webp" width="1649" height="835" alt="Interval plot of the paired model minus crowd residual gap. Primary cohort of 73 markets +0.061; stochastic stress adjustment +0.052; prospective, 41 of 52 frozen markets resolved, +0.054; later frozen cohort of 30 markets +0.049; 28 markets unresolved during elicitation +0.058. All intervals lie above zero." decoding="async"></div>
+  <figcaption><b>Figure 1.</b> The positive gap survives stress adjustment and prospective evaluation. All rows use the eight primary systems. The primary row covers 73 resolved markets in 21 topics; the stress row adjusts that cohort using five repeated calls on 15 markets at temperature 0.3. Prospective rows cover 41 resolved markets from the 52-market frozen cohort, a later 30-market cohort, and a nested 28-market subset unresolved throughout elicitation. Bars are 95% two-level bootstrap intervals (10,000 draws; topics, then markets). Reused and nested rows are not independent replications.</figcaption>
+</figure>
+
+  <section class="col abstract" id="abstract" aria-labelledby="h-abstract">
+    <h2 id="h-abstract">Abstract</h2>
+    <p>Forecasting benchmarks score where a model finishes, not how it gets there. We introduce a martingale audit of the full probability path. Under coherent Bayesian updating, expected squared movement <i>M</i> equals expected uncertainty reduction <i>R</i>, so the residual <i>C</i> = <i>M</i> − <i>R</i> has mean zero and requires neither the outcome nor intermediate probability labels. On 73 resolved Polymarket markets across 21 topics, an eight-system LLM panel shows a model–crowd residual gap of +0.061 (95% CI [+0.018, +0.105]; Wilcoxon <span class="nw">p = 3.7</span> × 10<sup>−6</sup>). Excess movement accounts for 80% of the gap, and the gap persists when both endpoints are matched (+0.048). A headline-only baseline given identical evidence stays near zero (<i>C</i> = +0.008), ruling out the headline channel alone as an explanation. The result holds under equal topic weighting, wild-cluster and jackknife inference, a stochastic elicitation stress test, and on 41 prospectively frozen markets (+0.054). LLM paths reverse direction more often than the crowd (36% versus 27%), and the gap shrinks with external capability (−0.024 per tier). Path coherence exposes revision behavior that endpoint scores miss.</p>
+  </section>
+
+  <section id="findings" aria-labelledby="h-findings">
+    <h2 class="col" id="h-findings">Key findings</h2>
+    <ul class="findings mid">
+      <li><div class="k"><span class="c1">+0.061</span></div><p class="v">Model − crowd gap in the martingale residual on 73 resolved markets in 21 topics (95% CI [+0.018, +0.105]; Wilcoxon <span class="nw">p = 3.7</span> × 10<sup>−6</sup>). All eight systems show a positive mean gap.</p></li>
+      <li><div class="k">80%</div><p class="v">Share of the gap due to excess movement <span class="nw">(ΔM = +0.049);</span> weaker uncertainty resolution adds the other +0.012. When model and crowd start and finish within 0.05 of each other, the gap is still +0.048.</p></li>
+      <li><div class="k"><span class="c1">36%</span> vs <span class="c2">27%</span></div><p class="v">Share of transitions that reverse direction, models against the crowd (permutation <span class="nw">p = 0.004).</span> Removing each path’s largest revision, with endpoints fixed, leaves a gap of +0.042.</p></li>
+      <li><div class="k">+0.008</div><p class="v">Residual of a headline-only baseline that sees the same nested headlines, close to the martingale benchmark. The LLM panel exceeds it by +0.053, so the headline channel alone does not explain the gap.</p></li>
+      <li><div class="k"><span class="c3">+0.054</span></div><p class="v">Gap on 41 resolved markets from a cohort frozen before resolution, in line with the retrospective estimate.</p></li>
+      <li><div class="k">−0.024 per tier</div><p class="v">Change in the gap per capability tier (95% CI [−0.041, −0.008]), in the same direction within every provider: within this fixed panel, stronger systems sit closer to the crowd.</p></li>
+    </ul>
+  </section>
+
+  <section class="wide" id="slides" aria-labelledby="h-slides">
+    <h2 class="col" id="h-slides">Talk slides</h2>
+    <div class="deck" data-deck data-count="13" data-base="assets/slides/slide-" data-titles="[&quot;Do LLM Forecasts Change Their Minds Coherently?&quot;, &quot;Endpoint scores cannot see the route&quot;, &quot;Coherent paths move as much as they resolve&quot;, &quot;Model and crowd paths on the same grid&quot;, &quot;LLM paths move more than they resolve&quot;, &quot;Not elicitation noise, not an inference artifact&quot;, &quot;Same headlines, different updating&quot;, &quot;Excess movement drives 80% of the gap&quot;, &quot;LLMs overshoot, then correct&quot;, &quot;Stronger systems come closer to the crowd&quot;, &quot;Complements regression-based martingale tests&quot;, &quot;A process check, not a target to optimize&quot;, &quot;Evaluate forecasts as processes, not endpoints&quot;]" role="region" aria-roledescription="carousel" aria-label="Talk slides">
+      <div>
+        <div class="deck-stage" tabindex="0" aria-label="Current slide. Use the arrow keys to move between slides.">
+          <img src="assets/slides/slide-01.webp" width="1600" height="900" alt="Slide 1 of 13: Do LLM Forecasts Change Their Minds Coherently?" decoding="async">
+        </div>
+        <div class="deck-bar">
+          <button type="button" class="ibtn" data-prev aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="deck-count" aria-live="polite">Slide 1 of 13</span>
+          <button type="button" class="ibtn" data-next aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button>
+          <span class="grow"></span>
+          <a class="dl" href="martingale-audit-slides.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg><span>Download PDF</span></a>
+          <button type="button" class="ibtn" data-fullscreen aria-label="Show slides full screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+        </div>
+        <noscript><p class="note">The slide viewer needs JavaScript. <a href="martingale-audit-slides.pdf">Download the slides as a PDF</a>.</p></noscript>
+      </div>
+      <nav class="outline-wrap" aria-label="Slide list">
+        <ol class="outline">
+          <li><button type="button" aria-current="true"><span>1</span><span>Do LLM Forecasts Change Their Minds Coherently?</span></button></li>
+          <li><button type="button" aria-current="false"><span>2</span><span>Endpoint scores cannot see the route</span></button></li>
+          <li><button type="button" aria-current="false"><span>3</span><span>Coherent paths move as much as they resolve</span></button></li>
+          <li><button type="button" aria-current="false"><span>4</span><span>Model and crowd paths on the same grid</span></button></li>
+          <li><button type="button" aria-current="false"><span>5</span><span>LLM paths move more than they resolve</span></button></li>
+          <li><button type="button" aria-current="false"><span>6</span><span>Not elicitation noise, not an inference artifact</span></button></li>
+          <li><button type="button" aria-current="false"><span>7</span><span>Same headlines, different updating</span></button></li>
+          <li><button type="button" aria-current="false"><span>8</span><span>Excess movement drives 80% of the gap</span></button></li>
+          <li><button type="button" aria-current="false"><span>9</span><span>LLMs overshoot, then correct</span></button></li>
+          <li><button type="button" aria-current="false"><span>10</span><span>Stronger systems come closer to the crowd</span></button></li>
+          <li><button type="button" aria-current="false"><span>11</span><span>Complements regression-based martingale tests</span></button></li>
+          <li><button type="button" aria-current="false"><span>12</span><span>A process check, not a target to optimize</span></button></li>
+          <li><button type="button" aria-current="false"><span>13</span><span>Evaluate forecasts as processes, not endpoints</span></button></li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="method" aria-labelledby="h-method">
+    <div class="col">
+      <h2 id="h-method">The audit</h2>
+      <p>Score a forecast only at the end and you miss how it got there. The audit scores the whole path. For probabilities <i>p</i><sub>0</sub>, …, <i>p</i><sub><i>K</i></sub> on a fixed grid, it compares how far the forecast travels with how much uncertainty it resolves:</p>
+      <p class="eq"><i>M</i> = Σ<sub><i>k</i></sub> (<i>p</i><sub><i>k</i></sub> − <i>p</i><sub><i>k</i>−1</sub>)<sup>2</sup>&emsp;&emsp;<i>R</i> = <i>p</i><sub>0</sub>(1 − <i>p</i><sub>0</sub>) − <i>p</i><sub><i>K</i></sub>(1 − <i>p</i><sub><i>K</i></sub>)&emsp;&emsp;<i>C</i> = <i>M</i> − <i>R</i></p>
+      <p>If each probability is the posterior given a growing information set, then E[<i>M</i><span class="nw">] = E[</span><i>R</i>], so E[<i>C</i><span class="nw">] = 0.</span> The residual needs neither the outcome nor intermediate probability labels, so it can run before a question resolves. It is a moment condition: a single positive <i>C</i> is not a violation, and a mean near zero is necessary, not sufficient.</p>
+      <p>Models and the crowd are scored on the same grid: 73 binary Polymarket markets in 21 topics, 12 cut-points from creation to a fixed horizon, and at each cut-point every dated headline available so far. Calls are stateless, with no crowd prices or prior outputs, at temperature 0. The eight systems come from OpenAI, Anthropic, and Amazon in efficient, balanced, and flagship tiers, and the panel was fixed before any residual was computed.</p>
+    </div>
+  </section>
+
+  <section id="movement" aria-labelledby="h-movement">
+    <div class="col">
+      <h2 id="h-movement">Excess movement drives the gap</h2>
+      <p>The gap decomposes exactly as <span class="nw">ΔC = ΔM</span> − ΔR. Models travel farther than the crowd <span class="nw">(ΔM = +0.049)</span> and resolve slightly less <span class="nw">(−ΔR = +0.012),</span> so movement carries 80% of the gap. Model paths also reverse direction more often: 36% of transitions against 27%. Removing each path’s single largest squared revision still leaves +0.042, so one big jump does not explain the result.</p>
+    </div>
+    <figure class="mid" id="figure-2">
+  <div class="plate"><img src="assets/fig2-gap-decomposition.webp" width="1650" height="519" alt="Three panels. A: movement contributes +0.049 (80%) and uncertainty +0.012 (20%) of the gap. B: direction reversal rate of 36% for models against 27% for the crowd. C: the gap is +0.061 with all steps and +0.042 with the largest step removed." decoding="async" loading="lazy"></div>
+  <figcaption><b>Figure 2.</b> Excess movement dominates; a single large revision does not explain the gap. Left: <span class="nw">ΔM = +0.049</span> and <span class="nw">−ΔR = +0.012</span> account for 80% and 20% of <span class="nw">ΔC = +0.061.</span> Center: models reverse direction on 36% of transitions versus 27% for the crowd (permutation <span class="nw">p = 0.004).</span> Right: removing the largest squared revision from each path, with endpoints fixed, leaves <span class="nw">ΔC = +0.042.</span> Error bars in the right panel are 95% intervals; the other panels show point estimates.</figcaption>
+</figure>
+  </section>
+
+  <section id="alignment" aria-labelledby="h-alignment">
+    <div class="col">
+      <h2 id="h-alignment">Alignment improves, but steps stay larger</h2>
+      <p>Across 784 headline–market pairs, model and crowd updates point in increasingly similar directions as the window widens, with correlations of 0.31, 0.38, and 0.42 at 1, 6, and 24 hours. LLM steps stay larger throughout: the mean absolute update is 1.41, 1.34, and 1.28 times the crowd’s.</p>
+    </div>
+    <figure class="mid" id="figure-3">
+  <div class="plate"><img src="assets/fig3-directional-alignment.webp" width="1650" height="521" alt="Two line charts over 1, 6, and 24 hour windows. A: model–crowd update correlation rises from 0.31 to 0.38 to 0.42. B: the ratio of model to crowd absolute updates falls from 1.41 to 1.34 to 1.28, staying above 1." decoding="async" loading="lazy"></div>
+  <figcaption><b>Figure 3.</b> Directional alignment increases, but model steps remain larger. Across 784 headline–market pairs, model–crowd update correlations at 1, 6, and 24 hours are 0.31, 0.38, and 0.42, and the mean absolute-update ratios are 1.41, 1.34, and 1.28. Panels show descriptive point estimates, without inferential intervals.</figcaption>
+</figure>
+  </section>
+
+  <section id="limitations" aria-labelledby="h-limitations">
+    <div class="col">
+      <h2 id="h-limitations">Scope and limitations</h2>
+      <dl class="terms">
+        <dt>Comparative, not causal</dt><dd>Traders may use private signals. The headline baseline and endpoint matching narrow this difference in information sets but do not eliminate it.</dd>
+        <dt>One platform, fixed panel</dt><dd>Polymarket only, with eight fixed systems. The Chatbot Arena Elo used to define tiers is not a forecasting benchmark.</dd>
+        <dt>Decoding</dt><dd>Temperature 0 is operationally deterministic, not guaranteed identical across providers, and the stress test is not a universal noise ceiling.</dd>
+        <dt>A process check, not a target</dt><dd>A forecaster that never revises attains <span class="nw">C = 0</span> while ignoring evidence. Read the residual alongside calibration, accuracy, responsiveness, and regression-based martingale tests.</dd>
+      </dl>
+      
+    </div>
+    
+  </section>
+
+  <section class="col" id="reproducibility" aria-labelledby="h-repro">
+    <h2 id="h-repro">Reproducibility</h2>
+    <p>The paper describes a planned release (Appendix F) of the market manifest, prompts, headline snapshots, all 657 attempted primary-panel-plus-anchor paths, and analysis code for the paired estimators, bootstrap intervals, regressions, and sensitivity tables.</p>
+    <p class="note">This page follows the NeurIPS 2026 workshop version of the paper on OpenReview. The site also hosts a <a href="martingale-audit.pdf">preprint version (PDF)</a>.</p>
+  </section>
+
+  <section class="col" id="cite" aria-labelledby="h-cite">
+    <h2 id="h-cite">Cite this paper</h2>
+    <div class="bib"><pre><code id="bibtex">@inproceedings{agrawal2026martingaleaudit,
+  title={Do LLM Forecasts Change Their Minds Coherently?},
+  author={Agrawal, Adarsh},
+  booktitle={NeurIPS 2026 Workshop on Foundation Models for Temporal Systems: From Forecasting to World Modeling},
+  year={2026},
+  url={https://openreview.net/forum?id=m9twt6TIfv}
+}</code></pre></div>
+    <div class="copyrow">
+      <button type="button" class="btn" data-copy="bibtex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Copy BibTeX</button>
+      <span class="status" data-copy-status aria-live="polite"></span>
+    </div>
+  </section>
+
+  <section class="col" id="related" aria-labelledby="h-related">
+    <h2 id="h-related">Related papers</h2>
+    <ul class="related">
+      <li><a href="/papers/reliability-horizon/">The Reliability Horizon: A Temporal Stress Test for Forecast Recalibration</a><span class="kind">Project page, also at this workshop</span></li>
+      <li><a href="/papers/belief-lifecycle/belief-lifecycle-preprint.pdf">When Does Temporal Validity Help Agent Memory? A Practical Evaluation Across Memory Regimes</a><span class="kind">Paper (PDF)</span></li>
+      <li><a href="/papers/clamp-order-propagate/clamp-order-propagate.pdf">Procedure, Not Causal Vocabulary: A Matched-Access Test of Interventional Reasoning in Foundation Models</a><span class="kind">Paper (PDF)</span></li>
+    </ul>
+    <p class="note" style="margin-top:1rem"><a href="/research.html">All publications and technical reports</a></p>
+  </section>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="page-shell footer-inner">
+    <div><strong>Adarsh Agrawal</strong><span>Senior Applied Scientist at Amazon</span></div>
+    <div class="footer-links">
+      <a href="mailto:adarsh.bjb@gmail.com">Email</a>
+      <a href="https://scholar.google.com/citations?user=fbqZ9wcAAAAJ&amp;hl=en" target="_blank" rel="noreferrer">Scholar</a>
+      <a href="https://github.com/addarshh" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://linkedin.com/in/adarshagrawal01" target="_blank" rel="noreferrer">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<script>
+(() => {
+  const deck = document.querySelector('[data-deck]');
+  if (deck) {
+    const n = +deck.dataset.count, base = deck.dataset.base, titles = JSON.parse(deck.dataset.titles);
+    const stage = deck.querySelector('.deck-stage'), img = stage.querySelector('img');
+    const count = deck.querySelector('.deck-count');
+    const prev = deck.querySelector('[data-prev]'), next = deck.querySelector('[data-next]');
+    const items = [...deck.querySelectorAll('.outline button')];
+    const src = (k) => base + String(k).padStart(2, '0') + '.webp';
+    let i = 1;
+    const show = (k) => {
+      i = Math.min(n, Math.max(1, k));
+      img.src = src(i);
+      img.alt = 'Slide ' + i + ' of ' + n + ': ' + titles[i - 1];
+      count.textContent = 'Slide ' + i + ' of ' + n;
+      prev.disabled = i === 1;
+      next.disabled = i === n;
+      items.forEach((b, j) => b.setAttribute('aria-current', j + 1 === i ? 'true' : 'false'));
+      if (i < n) { const pre = new Image(); pre.src = src(i + 1); }
+    };
+    prev.addEventListener('click', () => show(i - 1));
+    next.addEventListener('click', () => show(i + 1));
+    items.forEach((b, j) => b.addEventListener('click', () => show(j + 1)));
+    stage.addEventListener('click', (e) => {
+      const r = stage.getBoundingClientRect();
+      show(i + (e.clientX - r.left > r.width / 2 ? 1 : -1));
+    });
+    deck.addEventListener('keydown', (e) => {
+      const keys = { ArrowRight: i + 1, PageDown: i + 1, ArrowLeft: i - 1, PageUp: i - 1, Home: 1, End: n };
+      if (e.key in keys && !e.target.closest('.outline')) { show(keys[e.key]); e.preventDefault(); }
+    });
+    let x0 = null;
+    stage.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+      x0 = null;
+    });
+    const fs = deck.querySelector('[data-fullscreen]');
+    if (!stage.requestFullscreen) fs.hidden = true;
+    else fs.addEventListener('click', () => (document.fullscreenElement ? document.exitFullscreen() : stage.requestFullscreen()));
+    const m = location.hash.match(/^#slide-(\d+)$/);
+    show(m ? +m[1] : 1);
+    if (m) deck.scrollIntoView();
+  }
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const nav = document.querySelector('[data-site-nav]');
+  if (toggle && nav) {
+    const icons = { open: toggle.dataset.iconX, closed: toggle.innerHTML };
+    const setMenu = (open) => {
+      nav.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      toggle.setAttribute('title', open ? 'Close navigation' : 'Open navigation');
+      toggle.innerHTML = open ? icons.open : icons.closed;
+    };
+    toggle.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
+    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    window.addEventListener('resize', () => { if (window.innerWidth > 860) setMenu(false); });
+  }
+  const copy = document.querySelector('[data-copy]');
+  if (copy) {
+    const status = document.querySelector('[data-copy-status]');
+    const code = document.getElementById(copy.dataset.copy);
+    copy.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code.textContent);
+        status.textContent = 'Copied to clipboard';
+      } catch (err) {
+        const r = document.createRange(); r.selectNodeContents(code);
+        const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        status.textContent = 'Selected. Press Ctrl+C or ⌘C to copy';
+      }
+      setTimeout(() => { status.textContent = ''; }, 4000);
+    });
+  }
+})();
+</script>
+</body>
+</html>
